@@ -6,16 +6,15 @@ let dataNormalized;
 const exampleLabels = [1, 0, 2, 3];  // 1 = Fertile, 0 = Non Fertile
 const exampleYears = [0, 3];  // Années estimées pour atteindre la fertilité
 
-let model = tf.sequential();
+const model = tf.sequential();
 
 function collectData() {
-
     const ph = parseFloat(document.getElementById('ph').value);
     const nitrogen = parseFloat(document.getElementById('nitrogen').value);
     const phosphorus = parseFloat(document.getElementById('phosphorus').value);
     const potassium = parseFloat(document.getElementById('potassium').value);
     const moisture = parseFloat(document.getElementById('moisture').value);
-    
+
     // Préparation des données dans un format compatible avec TensorFlow.js
     const inputData = [ph, nitrogen, phosphorus, potassium, moisture];
 
@@ -25,10 +24,9 @@ function collectData() {
     // Utilisation des données normalisées pour l'entraînement ou la prédiction
     console.log('Données normalisées:', dataNormalized);
     alert('Données normalisées');
-   
 }
 
-//fonction de normalisation
+// Fonction de normalisation
 function normalizeData(data) {
     const minValues = [3.0, 0, 0, 0, 0];  // valeurs minimales pour chaque caractéristique
     const maxValues = [10.0, 100, 100, 100, 100];  // valeurs maximales pour chaque caractéristique
@@ -37,18 +35,15 @@ function normalizeData(data) {
 }
 
 async function trainModel(data, labels, years) {
-    // modèle séquentiel
-    
+    // Définition du modèle séquentiel
     model.add(tf.layers.dense({ units: 32, activation: 'relu', inputShape: [data[0].length] }));
     model.add(tf.layers.dense({ units: 16, activation: 'relu' }));
 
     // Sortie pour la classification multi-classes (4 classes)
-    const outputClassification = tf.layers.dense({ units: 4, activation: 'softmax' });
-    model.add(outputClassification);
+    model.add(tf.layers.dense({ units: 4, activation: 'softmax' }));
 
     // Sortie pour la régression (prédiction du temps en années)
-    const outputRegression = tf.layers.dense({ units: 1 });
-    model.add(outputRegression);
+    model.add(tf.layers.dense({ units: 1 }));
 
     // Compilation du modèle
     model.compile({
@@ -63,7 +58,7 @@ async function trainModel(data, labels, years) {
     const ysRegression = tf.tensor1d(years);  // Labels pour la régression
 
     // Entraîner le modèle
-    await model.fit(xs, [ysClassification, ysRegression], {
+    await model.fit(xs, { ysClassification, ysRegression }, {
         epochs: 50,
         batchSize: 16,
         validationSplit: 0.2,
@@ -74,25 +69,20 @@ async function trainModel(data, labels, years) {
     alert('Modèle entraîné avec succès');
 }
 
-// Exemple d'utilisation
-const exampleData = [
-    [6.5, 55, 45, 30, 0.20],  // Exemple de données normalisées
-    [7.2, 70, 60, 40, 0.35]
-];
-
 function predictSoilFertility(model, newInput) {
-
     const inputTensor = tf.tensor2d([newInput]);
     const prediction = model.predict(inputTensor);
 
-    const predictedClass = (prediction.dataSync()[0] > 0.5) ? 1 : 0;
+    // Prédiction de la fertilité (classification)
+    const predictedClass = tf.argMax(prediction[0], 1).dataSync()[0];
 
+    // Prédiction des années pour atteindre la fertilité (régression)
     const predictedYears = prediction[1].dataSync()[0];
 
-    console.log(`Prédiction: ${predictedClass === 1 ? 'Fertile' : 'Non Fertile'}`);
+    console.log(`Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}`);
     console.log(`Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)}`);
 
-    predictionResult.textContent = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'} <br> Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)}`;
+    predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br>Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)}`;
 }
 
 function validateFormAndExecute(action) {
@@ -106,19 +96,19 @@ function validateFormAndExecute(action) {
         document.getElementById('error-message').textContent = "Veuillez remplir le pH du Sol";
         document.getElementById("errorModal").style.display = "block";
         return;
-    }else if(!nitrogen){
+    } else if (!nitrogen) {
         document.getElementById('error-message').textContent = "Veuillez remplir l'Azote (N)";
         document.getElementById("errorModal").style.display = "block";
         return;
-    }else if(!phosphorus){
+    } else if (!phosphorus) {
         document.getElementById('error-message').textContent = "Veuillez remplir le Phosphore (P)";
         document.getElementById("errorModal").style.display = "block";
         return;
-    }else if(!potassium){
+    } else if (!potassium) {
         document.getElementById('error-message').textContent = "Veuillez remplir le Potassium (K)";
         document.getElementById("errorModal").style.display = "block";
         return;
-    }else if(!moisture){
+    } else if (!moisture) {
         document.getElementById('error-message').textContent = "Veuillez remplir l'Humidité";
         document.getElementById("errorModal").style.display = "block";
         return;
@@ -127,18 +117,15 @@ function validateFormAndExecute(action) {
     if (action === 'collect') {
         collectData();
     } else if (action === 'train') {
-        trainModel(dataNormalized, exampleLabels, exampleYears);
+        trainModel([dataNormalized], exampleLabels, exampleYears);
     } else if (action === 'predict') {
         predictSoilFertility(model, dataNormalized);
     }
 }
 
-
-
 function openModal() {
     document.getElementById("infoModal").style.display = "block";
 }
-
 
 function closeModal() {
     document.getElementById("infoModal").style.display = "none";
@@ -153,7 +140,4 @@ window.onclick = function(event) {
     if (event.target == modal) {
         closeModal();
     }
-}
-
-
-
+};
