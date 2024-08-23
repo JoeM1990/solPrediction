@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('sol.jpg'); /* Remplacez 'sol.jpg' par l'URL de votre image de fond */
+            background-image: url('sol.jpg'); 
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -19,10 +19,10 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            backdrop-filter: brightness(0.8); /* Réduit l'intensité de l'image de fond pour améliorer la lisibilité */
+            backdrop-filter: brightness(0.8); 
         }
 
-        /* Barre de navigation pour l'icône de connexion */
+     
         .navbar {
             position: absolute;
             top: 10px;
@@ -36,7 +36,7 @@
         }
 
         #soil-data-form {
-            background-color: rgba(255, 255, 255, 0.9); /* Fond blanc avec opacité pour contraster avec l'image de fond */
+            background-color: rgba(255, 255, 255, 0.9); 
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -89,9 +89,8 @@
             color: #333;
         }
 
-        /* Styles pour le modal */
         .modal {
-            display: none; /* Caché par défaut */
+            display: none;
             position: fixed;
             z-index: 1;
             left: 0;
@@ -99,7 +98,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
         .modal-content {
@@ -129,12 +128,11 @@
     </style>
 </head>
 <body>
-    <!-- Barre de navigation avec icône de connexion -->
+   
     <div class="navbar">
-        <img src="login-icon.png" class="login-icon" alt="Login" onclick="openModal()"> <!-- Remplacez 'login-icon.png' par l'URL de votre icône -->
+        <img src="login-icon.png" class="login-icon" alt="Login" onclick="openModal()"> 
     </div>
 
-    <!-- Formulaire de collecte de données -->
     <form id="soil-data-form">
         <label for="ph">pH du Sol:</label>
         <input type="number" id="ph" name="ph" step="0.01" required>
@@ -154,13 +152,13 @@
         <button type="button" onclick="collectData()">Soumettre</button>
     </form>
 
-    <!-- Zone de résultats de prédiction -->
+   
     <div id="prediction-result">
-        <!-- Afficher les résultats de prédiction ici -->
+       
         Les résultats de la prédiction apparaîtront ici.
     </div>
 
-    <!-- Modal -->
+
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -170,7 +168,7 @@
         </div>
     </div>
 
-    <!-- Inclusion de TensorFlow.js -->
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="app.js"></script>
 
