@@ -7,6 +7,10 @@ const btnCollect = document.getElementById('btn-collect');
 const btnTrain = document.getElementById('btn-train');
 const btnPredict = document.getElementById('btn-predict');
 
+const exampleLabels = [1, 0];  // 1 = Fertile, 0 = Non Fertile
+
+let model = tf.sequential();
+
 function collectData() {
 
     const ph = parseFloat(document.getElementById('ph').value);
@@ -37,7 +41,7 @@ function normalizeData(data) {
 
 async function trainModel(data, labels) {
     // modèle séquentiel
-    const model = tf.sequential();
+    
     model.add(tf.layers.dense({ units: 32, activation: 'relu', inputShape: [data[0].length] }));
     model.add(tf.layers.dense({ units: 16, activation: 'relu' }));
     model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' })); // Utiliser 'sigmoid' pour la classification binaire
@@ -83,8 +87,9 @@ function predictSoilFertility(model, newInput) {
 // const newSoilData = normalizeData([6.8, 65, 55, 35, 0.30]);
 // predictSoilFertility(model, newSoilData);
 
-function dataTraining(){
-    const exampleLabels = [1, 0];  // 1 = Fertile, 0 = Non Fertile
-    trainModel(dataNormalized, exampleLabels);
-}
+
+btnCollect.addEventListener('click', collectData);
+btnTrain.addEventListener('click', trainModel(dataNormalized, exampleLabels));
+btnPredict.addEventListener('click', predictSoilFertility(model, dataNormalized));
+
 
