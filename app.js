@@ -3,10 +3,6 @@
 const predictionResult = document.getElementById('prediction-result');
 let dataNormalized;
 
-const btnCollect = document.getElementById('btn-collect');
-const btnTrain = document.getElementById('btn-train');
-const btnPredict = document.getElementById('btn-predict');
-
 const exampleLabels = [1, 0];  // 1 = Fertile, 0 = Non Fertile
 
 let model = tf.sequential();
