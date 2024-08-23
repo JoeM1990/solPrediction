@@ -30,9 +30,9 @@
         <input type="number" id="moisture" name="moisture" step="0.01" required>
         
         <div class="button-container">
-            <button type="button"  id="btn-collect">Collect Data</button>
-            <button type="button" id="btn-train">Training Data</button>
-            <button type="button" id="btn-predict">Predict Data</button>
+            <button type="button" onclick="validateFormAndExecute('collect')">Collect Data</button>
+            <button type="button" onclick="validateFormAndExecute('train')">Training Data</button>
+            <button type="button" onclick="validateFormAndExecute('predict')">Predict Data</button>
         </div>
     </form>
 

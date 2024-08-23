@@ -106,8 +106,8 @@ function validateFormAndExecute(action) {
     }
 }
 
-btnCollect.addEventListener('click', validateFormAndExecute('collect'));
-btnTrain.addEventListener('click', validateFormAndExecute('train'));
-btnPredict.addEventListener('click', validateFormAndExecute('predict'));
+// btnCollect.addEventListener('click', validateFormAndExecute('collect'));
+// btnTrain.addEventListener('click', validateFormAndExecute('train'));
+// btnPredict.addEventListener('click', validateFormAndExecute('predict'));
 
 
