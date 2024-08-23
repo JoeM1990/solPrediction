@@ -1,5 +1,7 @@
 /* Author: Jonathan Monkila */
 
+const predictionResult = document.getElementById('prediction-result');
+
 function collectData() {
 
     const ph = parseFloat(document.getElementById('ph').value);
@@ -63,4 +65,18 @@ const exampleData = [
 const exampleLabels = [1, 0];  // 1 = Fertile, 0 = Non Fertile
 
 trainModel(exampleData, exampleLabels);
+
+function predictSoilFertility(model, newInput) {
+    const inputTensor = tf.tensor2d([newInput]);
+    const prediction = model.predict(inputTensor);
+    const predictedClass = (prediction.dataSync()[0] > 0.5) ? 1 : 0;
+    console.log(`Prédiction: ${predictedClass === 1 ? 'Fertile' : 'Non Fertile'}`);
+
+    predictionResult.textContent = `Prédiction: ${predictedClass === 1 ? 'Sol Fertile' : 'Sol Non Fertile'}`;
+}
+
+//prédiction
+const newSoilData = normalizeData([6.8, 65, 55, 35, 0.30]);
+predictSoilFertility(model, newSoilData);
+
 
