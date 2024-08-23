@@ -3,7 +3,8 @@
 const predictionResult = document.getElementById('prediction-result');
 let dataNormalized;
 
-const exampleLabels = [1, 0];  // 1 = Fertile, 0 = Non Fertile
+const exampleLabels = [1, 0, 2, 3];  // 1 = Fertile, 0 = Non Fertile
+const exampleYears = [0, 3];  // Années estimées pour atteindre la fertilité
 
 let model = tf.sequential();
 
@@ -35,26 +36,33 @@ function normalizeData(data) {
     return data.map((value, index) => (value - minValues[index]) / (maxValues[index] - minValues[index]));
 }
 
-async function trainModel(data, labels) {
+async function trainModel(data, labels, years) {
     // modèle séquentiel
     
     model.add(tf.layers.dense({ units: 32, activation: 'relu', inputShape: [data[0].length] }));
     model.add(tf.layers.dense({ units: 16, activation: 'relu' }));
-    model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' })); // Utiliser 'sigmoid' pour la classification binaire
 
-    // Compiler le modèle
+    // Sortie pour la classification multi-classes (4 classes)
+    const outputClassification = tf.layers.dense({ units: 4, activation: 'softmax' });
+    model.add(outputClassification);
+
+    // Sortie pour la régression (prédiction du temps en années)
+    const outputRegression = tf.layers.dense({ units: 1 });
+
+    // Compilation du modèle
     model.compile({
         optimizer: tf.train.adam(),
-        loss: 'binaryCrossentropy',
+        loss: ['sparseCategoricalCrossentropy', 'meanSquaredError'],
         metrics: ['accuracy'],
     });
 
     // Convertir les données en tenseurs
     const xs = tf.tensor2d(data);
-    const ys = tf.tensor2d(labels, [labels.length, 1]);
+    const ysClassification = tf.tensor1d(labels, 'int32');  // Labels pour la classification
+    const ysRegression = tf.tensor1d(years);  // Labels pour la régression
 
     // Entraîner le modèle
-    await model.fit(xs, ys, {
+    await model.fit(xs, [ysClassification, ysRegression], {
         epochs: 50,
         batchSize: 16,
         validationSplit: 0.2,
@@ -72,12 +80,18 @@ const exampleData = [
 ];
 
 function predictSoilFertility(model, newInput) {
+
     const inputTensor = tf.tensor2d([newInput]);
     const prediction = model.predict(inputTensor);
-    const predictedClass = (prediction.dataSync()[0] > 0.5) ? 1 : 0;
-    console.log(`Prédiction: ${predictedClass === 1 ? 'Fertile' : 'Non Fertile'}`);
 
-    predictionResult.textContent = `Prédiction: ${predictedClass === 1 ? 'Sol Fertile' : 'Sol Non Fertile'}`;
+    const predictedClass = (prediction.dataSync()[0] > 0.5) ? 1 : 0;
+
+    const predictedYears = prediction[1].dataSync()[0];
+
+    console.log(`Prédiction: ${predictedClass === 1 ? 'Fertile' : 'Non Fertile'}`);
+    console.log(`Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)}`);
+
+    predictionResult.textContent = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'} <br> Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)}`;
 }
 
 function validateFormAndExecute(action) {
