@@ -29,7 +29,7 @@
         <label for="moisture">Humidité:</label>
         <input type="number" id="moisture" name="moisture" step="0.01" required>
         
-        <button type="button" onclick="collectData()">Soumettre</button>
+        <button type="submit" onclick="collectData()">Soumettre</button>
     </form>
 
    
@@ -44,7 +44,8 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Informations sur l'application</h2>
             <p>Cet outil vous permet de collecter des données sur la fertilité du sol et de prédire la qualité du sol basé sur les mesures saisies.</p>
-            <p>Utilisez les champs ci-dessus pour entrer les données du sol, puis cliquez sur "Soumettre" pour voir la prédiction.</p>
+            <p>Utilisez les champs ci-dessus pour entrer les données du sol, puis cliquez sur "Soumettre" pour voir la prédiction.</p> <br>
+            <p>By MonkilaTech</p>
         </div>
     </div>
 
@@ -62,23 +63,6 @@
         function closeModal() {
             document.getElementById("infoModal").style.display = "none";
         }
-
-
-        function collectData() {
-            const ph = document.getElementById('ph').value;
-            const nitrogen = document.getElementById('nitrogen').value;
-            const phosphorus = document.getElementById('phosphorus').value;
-            const potassium = document.getElementById('potassium').value;
-            const moisture = document.getElementById('moisture').value;
-
-            console.log({ ph, nitrogen, phosphorus, potassium, moisture });
-
-            const predictionResult = document.getElementById('prediction-result');
-            predictionResult.textContent = 'Prédiction: Sol fertile avec un potentiel de culture élevé!';
-
-            alert('Données soumises avec succès!');
-        }
-
        
         window.onclick = function(event) {
             const modal = document.getElementById('infoModal');
