@@ -84,8 +84,30 @@ function predictSoilFertility(model, newInput) {
     predictionResult.textContent = `Prédiction: ${predictedClass === 1 ? 'Sol Fertile' : 'Sol Non Fertile'}`;
 }
 
-btnCollect.addEventListener('click', collectData);
-btnTrain.addEventListener('click', trainModel(dataNormalized, exampleLabels));
-btnPredict.addEventListener('click', predictSoilFertility(model, dataNormalized));
+function validateFormAndExecute(action) {
+    const ph = document.getElementById('ph').value;
+    const nitrogen = document.getElementById('nitrogen').value;
+    const phosphorus = document.getElementById('phosphorus').value;
+    const potassium = document.getElementById('potassium').value;
+    const moisture = document.getElementById('moisture').value;
+
+    if (!ph || !nitrogen || !phosphorus || !potassium || !moisture) {
+        document.getElementById('error-message').textContent = "Veuillez remplir tous les champs requis.";
+        document.getElementById("errorModal").style.display = "block";
+        return;
+    }
+
+    if (action === 'collect') {
+        collectData();
+    } else if (action === 'train') {
+        trainModel(dataNormalized, exampleLabels);
+    } else if (action === 'predict') {
+        predictSoilFertility(model, dataNormalized);
+    }
+}
+
+btnCollect.addEventListener('click', validateFormAndExecute('collect'));
+btnTrain.addEventListener('click', validateFormAndExecute('train'));
+btnPredict.addEventListener('click', validateFormAndExecute('predict'));
 
 

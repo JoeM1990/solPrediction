@@ -85,20 +85,6 @@
                 closeModal();
             }
         }
-
-        function validateFormAndExecute() {
-            const ph = document.getElementById('ph').value;
-            const nitrogen = document.getElementById('nitrogen').value;
-            const phosphorus = document.getElementById('phosphorus').value;
-            const potassium = document.getElementById('potassium').value;
-            const moisture = document.getElementById('moisture').value;
-
-            if (!ph || !nitrogen || !phosphorus || !potassium || !moisture) {
-                document.getElementById('error-message').textContent = "Veuillez remplir tous les champs requis.";
-                document.getElementById("errorModal").style.display = "block";
-                return;
-            }
-        }
     </script>
 </body>
 </html>
