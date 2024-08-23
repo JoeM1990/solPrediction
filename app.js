@@ -84,11 +84,6 @@ function predictSoilFertility(model, newInput) {
     predictionResult.textContent = `Prédiction: ${predictedClass === 1 ? 'Sol Fertile' : 'Sol Non Fertile'}`;
 }
 
-//prédiction
-// const newSoilData = normalizeData([6.8, 65, 55, 35, 0.30]);
-// predictSoilFertility(model, newSoilData);
-
-
 btnCollect.addEventListener('click', collectData);
 btnTrain.addEventListener('click', trainModel(dataNormalized, exampleLabels));
 btnPredict.addEventListener('click', predictSoilFertility(model, dataNormalized));
