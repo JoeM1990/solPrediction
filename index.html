@@ -5,23 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collecte de Données du Sol</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #soil-data-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+    </style>
 </head>
 <body>
     <form id="soil-data-form">
         <label for="ph">pH du Sol:</label>
-        <input type="number" id="ph" name="ph" step="0.01" required><br><br>
+        <input type="number" id="ph" name="ph" step="0.01" required>
         
         <label for="nitrogen">Azote (N):</label>
-        <input type="number" id="nitrogen" name="nitrogen" required><br><br>
+        <input type="number" id="nitrogen" name="nitrogen" required>
         
         <label for="phosphorus">Phosphore (P):</label>
-        <input type="number" id="phosphorus" name="phosphorus" required><br><br>
+        <input type="number" id="phosphorus" name="phosphorus" required>
         
         <label for="potassium">Potassium (K):</label>
-        <input type="number" id="potassium" name="potassium" required><br><br>
+        <input type="number" id="potassium" name="potassium" required>
         
         <label for="moisture">Humidité:</label>
-        <input type="number" id="moisture" name="moisture" step="0.01" required><br><br>
+        <input type="number" id="moisture" name="moisture" step="0.01" required>
         
         <button type="button" onclick="collectData()">Soumettre</button>
     </form>
@@ -29,5 +82,20 @@
     <!-- Inclusion de TensorFlow.js -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="app.js"></script>
+
+    <script>
+        function collectData() {
+            const ph = document.getElementById('ph').value;
+            const nitrogen = document.getElementById('nitrogen').value;
+            const phosphorus = document.getElementById('phosphorus').value;
+            const potassium = document.getElementById('potassium').value;
+            const moisture = document.getElementById('moisture').value;
+
+            // Logique de collecte des données à implémenter ici
+            console.log({ ph, nitrogen, phosphorus, potassium, moisture });
+
+            alert('Données soumises avec succès!');
+        }
+    </script>
 </body>
 </html>
