@@ -1,3 +1,5 @@
+/* Author: Jonathan Monkila */
+
 function collectData() {
 
     const ph = parseFloat(document.getElementById('ph').value);
