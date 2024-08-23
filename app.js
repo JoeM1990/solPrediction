@@ -27,7 +27,7 @@ function collectData() {
 
     // Utilisation des données normalisées pour l'entraînement ou la prédiction
     console.log('Données normalisées:', dataNormalized);
-
+    alert('Données normalisées');
    
 }
 
@@ -66,6 +66,7 @@ async function trainModel(data, labels) {
     });
 
     console.log('Modèle entraîné avec succès');
+    alert('Modèle entraîné avec succès');
 }
 
 // Exemple d'utilisation
