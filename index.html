@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('assets/sol_plantation.webp'); 
+            background-image: url('sol.jpg'); /* Remplacez 'sol.jpg' par l'URL de votre image de fond */
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -19,11 +19,24 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            backdrop-filter: brightness(0.8); 
+            backdrop-filter: brightness(0.8); /* Réduit l'intensité de l'image de fond pour améliorer la lisibilité */
+        }
+
+        /* Barre de navigation pour l'icône de connexion */
+        .navbar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .login-icon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
         }
 
         #soil-data-form {
-            background-color: rgba(255, 255, 255, 0.9); 
+            background-color: rgba(255, 255, 255, 0.9); /* Fond blanc avec opacité pour contraster avec l'image de fond */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -75,36 +88,104 @@
             font-size: 16px;
             color: #333;
         }
+
+        /* Styles pour le modal */
+        .modal {
+            display: none; /* Caché par défaut */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    <!-- Barre de navigation avec icône de connexion -->
+    <div class="navbar">
+        <img src="login-icon.png" class="login-icon" alt="Login" onclick="openModal()"> <!-- Remplacez 'login-icon.png' par l'URL de votre icône -->
+    </div>
+
+    <!-- Formulaire de collecte de données -->
     <form id="soil-data-form">
         <label for="ph">pH du Sol:</label>
-        <input type="number" id="ph" name="ph" step="0.01" required="">
+        <input type="number" id="ph" name="ph" step="0.01" required>
         
         <label for="nitrogen">Azote (N):</label>
-        <input type="number" id="nitrogen" name="nitrogen" required="">
+        <input type="number" id="nitrogen" name="nitrogen" required>
         
         <label for="phosphorus">Phosphore (P):</label>
-        <input type="number" id="phosphorus" name="phosphorus" required="">
+        <input type="number" id="phosphorus" name="phosphorus" required>
         
         <label for="potassium">Potassium (K):</label>
-        <input type="number" id="potassium" name="potassium" required="">
+        <input type="number" id="potassium" name="potassium" required>
         
         <label for="moisture">Humidité:</label>
-        <input type="number" id="moisture" name="moisture" step="0.01" required="">
+        <input type="number" id="moisture" name="moisture" step="0.01" required>
         
         <button type="button" onclick="collectData()">Soumettre</button>
     </form>
 
+    <!-- Zone de résultats de prédiction -->
     <div id="prediction-result">
+        <!-- Afficher les résultats de prédiction ici -->
         Les résultats de la prédiction apparaîtront ici.
     </div>
 
+    <!-- Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Informations sur l'application</h2>
+            <p>Cet outil vous permet de collecter des données sur la fertilité du sol et de prédire la qualité du sol basé sur les mesures saisies.</p>
+            <p>Utilisez les champs ci-dessus pour entrer les données du sol, puis cliquez sur "Soumettre" pour voir la prédiction.</p>
+        </div>
+    </div>
+
+    <!-- Inclusion de TensorFlow.js -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="app.js"></script>
 
     <script>
+        // Fonction pour ouvrir le modal
+        function openModal() {
+            document.getElementById("infoModal").style.display = "block";
+        }
+
+        // Fonction pour fermer le modal
+        function closeModal() {
+            document.getElementById("infoModal").style.display = "none";
+        }
+
+        // Fonction pour collecter les données du formulaire
         function collectData() {
             const ph = document.getElementById('ph').value;
             const nitrogen = document.getElementById('nitrogen').value;
@@ -112,14 +193,22 @@
             const potassium = document.getElementById('potassium').value;
             const moisture = document.getElementById('moisture').value;
 
-           
+            // Logique de collecte des données à implémenter ici
             console.log({ ph, nitrogen, phosphorus, potassium, moisture });
 
-          
+            // Mettre à jour l'élément de résultat avec des données fictives pour l'instant
             const predictionResult = document.getElementById('prediction-result');
             predictionResult.textContent = 'Prédiction: Sol fertile avec un potentiel de culture élevé!';
 
             alert('Données soumises avec succès!');
+        }
+
+        // Fermer le modal lorsqu'on clique à l'extérieur de celui-ci
+        window.onclick = function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target == modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
