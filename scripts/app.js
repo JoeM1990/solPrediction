@@ -3,10 +3,8 @@
 const predictionResult = document.getElementById('prediction-result');
 let dataNormalized;
 
-const exampleLabels = [1, 0, 2, 3];  // 1 = Fertile, 0 = Non Fertile
-const exampleYears = [0, 3];  // Années estimées pour atteindre la fertilité
-
-const model = tf.sequential();
+const exampleLabels = [1, 0, 2, 3, 4 ];  // 1 = Fertile, 0 = Non Fertile
+const exampleYears = [1, 0, 2, 3, 4];  // Années estimées pour atteindre la fertilité
 
 function collectData() {
     const ph = parseFloat(document.getElementById('ph').value);
@@ -35,20 +33,29 @@ function normalizeData(data) {
 }
 
 async function trainModel(data, labels, years) {
-    // Définition du modèle séquentiel
-    model.add(tf.layers.dense({ units: 32, activation: 'relu', inputShape: [data[0].length] }));
-    model.add(tf.layers.dense({ units: 16, activation: 'relu' }));
+    // Entrée du modèle
+    const input = tf.input({ shape: [data[0].length] });
+
+    // Couche cachée commune
+    const hiddenLayer1 = tf.layers.dense({ units: 32, activation: 'relu' }).apply(input);
+    const hiddenLayer2 = tf.layers.dense({ units: 16, activation: 'relu' }).apply(hiddenLayer1);
 
     // Sortie pour la classification multi-classes (4 classes)
-    model.add(tf.layers.dense({ units: 4, activation: 'softmax' }));
+    const outputClassification = tf.layers.dense({ units: 4, activation: 'softmax', name: 'classification_output' }).apply(hiddenLayer2);
 
     // Sortie pour la régression (prédiction du temps en années)
-    model.add(tf.layers.dense({ units: 1 }));
+    const outputRegression = tf.layers.dense({ units: 1, name: 'regression_output' }).apply(hiddenLayer2);
 
-    // Compilation du modèle
+    // Création du modèle avec deux sorties
+    const model = tf.model({ inputs: input, outputs: [outputClassification, outputRegression] });
+
+    // Compilation du modèle avec deux sorties
     model.compile({
         optimizer: tf.train.adam(),
-        loss: ['sparseCategoricalCrossentropy', 'meanSquaredError'],
+        loss: {
+            classification_output: 'sparseCategoricalCrossentropy',  // perte pour la sortie de classification
+            regression_output: 'meanSquaredError'  // perte pour la sortie de régression
+        },
         metrics: ['accuracy'],
     });
 
@@ -58,7 +65,7 @@ async function trainModel(data, labels, years) {
     const ysRegression = tf.tensor1d(years);  // Labels pour la régression
 
     // Entraîner le modèle
-    await model.fit(xs, { ysClassification, ysRegression }, {
+    await model.fit(xs, { classification_output: ysClassification, regression_output: ysRegression }, {
         epochs: 50,
         batchSize: 16,
         validationSplit: 0.2,
@@ -74,7 +81,7 @@ function predictSoilFertility(model, newInput) {
     const prediction = model.predict(inputTensor);
 
     // Prédiction de la fertilité (classification)
-    const predictedClass = tf.argMax(prediction[0], 1).dataSync()[0];
+    const predictedClass = prediction[0].argMax(1).dataSync()[0];
 
     // Prédiction des années pour atteindre la fertilité (régression)
     const predictedYears = prediction[1].dataSync()[0];
