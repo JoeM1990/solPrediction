@@ -1,6 +1,11 @@
 /* Author: Jonathan Monkila */
 
 const predictionResult = document.getElementById('prediction-result');
+let dataNormalized;
+
+const btnCollect = document.getElementById('btn-collect');
+const btnTrain = document.getElementById('btn-train');
+const btnPredict = document.getElementById('btn-predict');
 
 function collectData() {
 
@@ -14,10 +19,12 @@ function collectData() {
     const inputData = [ph, nitrogen, phosphorus, potassium, moisture];
 
     // Normalisation des données (si nécessaire)
-    const normalizedData = normalizeData(inputData);
+    dataNormalized = normalizeData(inputData);
 
     // Utilisation des données normalisées pour l'entraînement ou la prédiction
-    console.log('Données normalisées:', normalizedData);
+    console.log('Données normalisées:', dataNormalized);
+
+   
 }
 
 //fonction de normalisation
@@ -62,9 +69,6 @@ const exampleData = [
     [6.5, 55, 45, 30, 0.20],  // Exemple de données normalisées
     [7.2, 70, 60, 40, 0.35]
 ];
-const exampleLabels = [1, 0];  // 1 = Fertile, 0 = Non Fertile
-
-trainModel(exampleData, exampleLabels);
 
 function predictSoilFertility(model, newInput) {
     const inputTensor = tf.tensor2d([newInput]);
@@ -76,7 +80,11 @@ function predictSoilFertility(model, newInput) {
 }
 
 //prédiction
-const newSoilData = normalizeData([6.8, 65, 55, 35, 0.30]);
-predictSoilFertility(model, newSoilData);
+// const newSoilData = normalizeData([6.8, 65, 55, 35, 0.30]);
+// predictSoilFertility(model, newSoilData);
 
+function dataTraining(){
+    const exampleLabels = [1, 0];  // 1 = Fertile, 0 = Non Fertile
+    trainModel(dataNormalized, exampleLabels);
+}
 

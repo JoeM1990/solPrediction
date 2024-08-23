@@ -29,7 +29,11 @@
         <label for="moisture">Humidité:</label>
         <input type="number" id="moisture" name="moisture" step="0.01" required>
         
-        <button type="submit" onclick="collectData()">Soumettre</button>
+        <div class="button-container">
+            <button type="button"  id="btn-collect">Collect Data</button>
+            <button type="button" id="btn-train">Training Data</button>
+            <button type="button" id="btn-predict">Predict Data</button>
+        </div>
     </form>
 
    
