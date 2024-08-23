@@ -6,11 +6,13 @@ function collectData() {
     const potassium = parseFloat(document.getElementById('potassium').value);
     const moisture = parseFloat(document.getElementById('moisture').value);
     
-
+    // Préparation des données dans un format compatible avec TensorFlow.js
     const inputData = [ph, nitrogen, phosphorus, potassium, moisture];
 
+    // Normalisation des données (si nécessaire)
     const normalizedData = normalizeData(inputData);
 
+    // Utilisation des données normalisées pour l'entraînement ou la prédiction
     console.log('Données normalisées:', normalizedData);
 }
 
