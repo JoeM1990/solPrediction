@@ -48,6 +48,7 @@ async function trainModel(data, labels, years) {
 
     // Sortie pour la régression (prédiction du temps en années)
     const outputRegression = tf.layers.dense({ units: 1 });
+    model.add(outputRegression);
 
     // Compilation du modèle
     model.compile({
@@ -126,9 +127,31 @@ function validateFormAndExecute(action) {
     if (action === 'collect') {
         collectData();
     } else if (action === 'train') {
-        trainModel(dataNormalized, exampleLabels);
+        trainModel(dataNormalized, exampleLabels, exampleYears);
     } else if (action === 'predict') {
         predictSoilFertility(model, dataNormalized);
+    }
+}
+
+
+
+function openModal() {
+    document.getElementById("infoModal").style.display = "block";
+}
+
+
+function closeModal() {
+    document.getElementById("infoModal").style.display = "none";
+}
+
+function closeErrorModal() {
+    document.getElementById("errorModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('infoModal');
+    if (event.target == modal) {
+        closeModal();
     }
 }
 
