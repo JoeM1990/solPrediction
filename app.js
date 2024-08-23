@@ -87,8 +87,24 @@ function validateFormAndExecute(action) {
     const potassium = document.getElementById('potassium').value;
     const moisture = document.getElementById('moisture').value;
 
-    if (!ph || !nitrogen || !phosphorus || !potassium || !moisture) {
-        document.getElementById('error-message').textContent = "Veuillez remplir tous les champs requis.";
+    if (!ph) {
+        document.getElementById('error-message').textContent = "Veuillez remplir le pH du Sol";
+        document.getElementById("errorModal").style.display = "block";
+        return;
+    }else if(!nitrogen){
+        document.getElementById('error-message').textContent = "Veuillez remplir l'Azote (N)";
+        document.getElementById("errorModal").style.display = "block";
+        return;
+    }else if(!phosphorus){
+        document.getElementById('error-message').textContent = "Veuillez remplir le Phosphore (P)";
+        document.getElementById("errorModal").style.display = "block";
+        return;
+    }else if(!potassium){
+        document.getElementById('error-message').textContent = "Veuillez remplir le Potassium (K)";
+        document.getElementById("errorModal").style.display = "block";
+        return;
+    }else if(!moisture){
+        document.getElementById('error-message').textContent = "Veuillez remplir l'Humidité";
         document.getElementById("errorModal").style.display = "block";
         return;
     }
