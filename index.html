@@ -173,17 +173,17 @@
     <script src="app.js"></script>
 
     <script>
-        // Fonction pour ouvrir le modal
+       
         function openModal() {
             document.getElementById("infoModal").style.display = "block";
         }
 
-        // Fonction pour fermer le modal
+       
         function closeModal() {
             document.getElementById("infoModal").style.display = "none";
         }
 
-        // Fonction pour collecter les données du formulaire
+
         function collectData() {
             const ph = document.getElementById('ph').value;
             const nitrogen = document.getElementById('nitrogen').value;
@@ -191,17 +191,15 @@
             const potassium = document.getElementById('potassium').value;
             const moisture = document.getElementById('moisture').value;
 
-            // Logique de collecte des données à implémenter ici
             console.log({ ph, nitrogen, phosphorus, potassium, moisture });
 
-            // Mettre à jour l'élément de résultat avec des données fictives pour l'instant
             const predictionResult = document.getElementById('prediction-result');
             predictionResult.textContent = 'Prédiction: Sol fertile avec un potentiel de culture élevé!';
 
             alert('Données soumises avec succès!');
         }
 
-        // Fermer le modal lorsqu'on clique à l'extérieur de celui-ci
+       
         window.onclick = function(event) {
             const modal = document.getElementById('infoModal');
             if (event.target == modal) {
