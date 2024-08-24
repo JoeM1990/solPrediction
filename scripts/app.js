@@ -134,7 +134,7 @@ function validateFormAndExecute(action) {
 
         setTimeout(function() {
             document.getElementById("errorModal").style.display = "none";
-        }, 2000);
+        }, 1000);
        
         return;
     } else if (!nitrogen) {
@@ -143,7 +143,7 @@ function validateFormAndExecute(action) {
 
         setTimeout(function() {
             document.getElementById("errorModal").style.display = "none";
-        }, 2000);
+        }, 1000);
        
         return;
     } else if (!phosphorus) {
@@ -152,7 +152,7 @@ function validateFormAndExecute(action) {
 
         setTimeout(function() {
             document.getElementById("errorModal").style.display = "none";
-        }, 2000);
+        }, 1000);
         
         return;
     } else if (!potassium) {
@@ -161,7 +161,7 @@ function validateFormAndExecute(action) {
 
         setTimeout(function() {
             document.getElementById("errorModal").style.display = "none";
-        }, 2000);
+        }, 1000);
        
         return;
     } else if (!moisture) {
@@ -170,7 +170,7 @@ function validateFormAndExecute(action) {
 
         setTimeout(function() {
             document.getElementById("errorModal").style.display = "none";
-        }, 2000);
+        }, 1000);
         
         return;
     }
