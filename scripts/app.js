@@ -83,12 +83,10 @@ async function trainModel(data, labels, years) {
     });
 
     console.log('Modèle entraîné avec succès');
-    alert('Modèle entraîné avec succès');
 }
 
 function predictSoilFertility(model, newInput) {
     const inputTensor = tf.tensor2d([newInput]);
-
 
     const inputTensorFloat = inputTensor.cast('float32');
 
