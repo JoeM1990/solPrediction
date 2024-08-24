@@ -33,47 +33,47 @@ function normalizeData(data) {
 }
 
 async function trainModel(data, labels, years) {
-     // Entrée du modèle
-     const input = tf.input({ shape: [data[0].length] });
+    // Entrée du modèle
+    const input = tf.input({ shape: [data[0].length] });
 
-     // Couche cachée commune
-     const hiddenLayer1 = tf.layers.dense({ units: 32, activation: 'relu' }).apply(input);
-     const hiddenLayer2 = tf.layers.dense({ units: 16, activation: 'relu' }).apply(hiddenLayer1);
- 
-     // Sortie pour la classification multi-classes (4 classes)
-     const outputClassification = tf.layers.dense({ units: 4, activation: 'softmax', name: 'classification_output' }).apply(hiddenLayer2);
- 
-     // Sortie pour la régression (prédiction du temps en années)
-     const outputRegression = tf.layers.dense({ units: 1, name: 'regression_output' }).apply(hiddenLayer2);
- 
-     // Création du modèle avec deux sorties
-     const model = tf.model({ inputs: input, outputs: [outputClassification, outputRegression] });
- 
-     // Compilation du modèle avec deux sorties
-     model.compile({
-         optimizer: tf.train.adam(),
-         loss: {
-             classification_output: 'sparseCategoricalCrossentropy',  // perte pour la sortie de classification
-             regression_output: 'meanSquaredError'  // perte pour la sortie de régression
-         },
-         metrics: ['accuracy'],
-     });
- 
-     // Convertir les données en tenseurs
-     const xs = tf.tensor2d(data);  // Assurez-vous que `data` est un tableau de tableaux
-     const ysClassification = tf.tensor1d(labels, 'int32');  // Labels pour la classification
-     const ysRegression = tf.tensor1d(years);  // Labels pour la régression
- 
-     // Entraîner le modèle
-     await model.fit(xs, { classification_output: ysClassification, regression_output: ysRegression }, {
-         epochs: 50,
-         batchSize: 16,
-         validationSplit: 0.2,
-         callbacks: tf.callbacks.earlyStopping({ monitor: 'val_loss' })
-     });
- 
-     console.log('Modèle entraîné avec succès');
-     alert('Modèle entraîné avec succès');
+    // Couche cachée commune
+    const hiddenLayer1 = tf.layers.dense({ units: 32, activation: 'relu' }).apply(input);
+    const hiddenLayer2 = tf.layers.dense({ units: 16, activation: 'relu' }).apply(hiddenLayer1);
+
+    // Sortie pour la classification multi-classes (4 classes)
+    const outputClassification = tf.layers.dense({ units: 4, activation: 'softmax', name: 'classification_output' }).apply(hiddenLayer2);
+
+    // Sortie pour la régression (prédiction du temps en années)
+    const outputRegression = tf.layers.dense({ units: 1, name: 'regression_output' }).apply(hiddenLayer2);
+
+    // Création du modèle avec deux sorties
+    const model = tf.model({ inputs: input, outputs: [outputClassification, outputRegression] });
+
+    // Compilation du modèle avec deux sorties
+    model.compile({
+        optimizer: tf.train.adam(),
+        loss: {
+            classification_output: 'sparseCategoricalCrossentropy',  // perte pour la sortie de classification
+            regression_output: 'meanSquaredError'  // perte pour la sortie de régression
+        },
+        metrics: ['accuracy'],
+    });
+
+    // Convertir les données en tenseurs
+    const xs = tf.tensor2d(data).cast('float32');  // Assurez-vous que `data` est un tableau de tableaux
+    const ysClassification = tf.tensor1d(labels, 'int32');  // Labels pour la classification
+    const ysRegression = tf.tensor1d(years).cast('float32');  // Labels pour la régression, convertis en 'float32'
+
+    // Entraîner le modèle
+    await model.fit(xs, { classification_output: ysClassification, regression_output: ysRegression }, {
+        epochs: 50,
+        batchSize: 16,
+        validationSplit: 0.2,
+        callbacks: tf.callbacks.earlyStopping({ monitor: 'val_loss' })
+    });
+
+    console.log('Modèle entraîné avec succès');
+    alert('Modèle entraîné avec succès');
 }
 
 function predictSoilFertility(model, newInput) {
