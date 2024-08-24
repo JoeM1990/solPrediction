@@ -31,6 +31,7 @@ Pour exécuter ce projet localement, suivez les étapes ci-dessous.
 
 2. **Ouvrez le fichier HTML**
 
+    ```bash
     Ouvrez le fichier index.html dans votre navigateur web pour lancer l'application.
 
 
