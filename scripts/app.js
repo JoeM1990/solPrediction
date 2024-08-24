@@ -81,20 +81,14 @@ function predictSoilFertility(model, newInput) {
 
     const prediction = model.predict(inputTensorFloat);
 
-    // Prédiction de la fertilité (classification)
+   
     const predictedClassTensor = prediction[0].argMax(1);
-    
-    // Convertir le tenseur en 'float32' avant d'utiliser des fonctions comme 'floor'
     const predictedClassFloat = predictedClassTensor.cast('float32');
 
     const predictedClass = predictedClassFloat.dataSync()[0];
-
-    // Prédiction des années pour atteindre la fertilité (régression)
     const predictedYearsTensor = prediction[1];
     
-    // Si 'predictedYearsTensor' doit également être 'float32'
     const predictedYearsFloat = predictedYearsTensor.cast('float32');
-    
     //const predictedYears = predictedYearsFloat.dataSync()[0];
     const predictedYears = prediction[1].dataSync()[0];
 
