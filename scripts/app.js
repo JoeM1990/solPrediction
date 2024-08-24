@@ -21,10 +21,13 @@ function collectData() {
 
     console.log('Données normalisées:', dataNormalized);
 
+    document.getElementById('infos-message').textContent = "Les données sont collectées et normalisées";
+    document.getElementById("messageModal").style.display = "block";
+
+
     setTimeout(function() {
-        document.getElementById('infos-message').textContent = "Les données sont collectées et normalisées";
-        document.getElementById("messageModal").style.display = "block";
-    }, 3000);
+        document.getElementById("messageModal").style.display = "none";
+    }, 2000);
 }
 
 function normalizeData(data) {
@@ -35,11 +38,12 @@ function normalizeData(data) {
 }
 
 async function trainModel(data, labels, years) {
+    document.getElementById('infos-message').textContent = "Modèle entraîné avec succès";
+    document.getElementById("messageModal").style.display = "block";
 
     setTimeout(function() {
-        document.getElementById('infos-message').textContent = "Modèle entraîné avec succès";
-        document.getElementById("messageModal").style.display = "block";
-    }, 3000);
+        document.getElementById("messageModal").style.display = "none";
+    }, 2000);
 
     const input = tf.input({ shape: [data[0].length] });
 
@@ -127,22 +131,47 @@ function validateFormAndExecute(action) {
     if (!ph) {
         document.getElementById('error-message').textContent = "Veuillez remplir le pH du Sol";
         document.getElementById("errorModal").style.display = "block";
+
+        setTimeout(function() {
+            document.getElementById("errorModal").style.display = "none";
+        }, 2000);
+       
         return;
     } else if (!nitrogen) {
         document.getElementById('error-message').textContent = "Veuillez remplir l'Azote (N)";
         document.getElementById("errorModal").style.display = "block";
+
+        setTimeout(function() {
+            document.getElementById("errorModal").style.display = "none";
+        }, 2000);
+       
         return;
     } else if (!phosphorus) {
         document.getElementById('error-message').textContent = "Veuillez remplir le Phosphore (P)";
         document.getElementById("errorModal").style.display = "block";
+
+        setTimeout(function() {
+            document.getElementById("errorModal").style.display = "none";
+        }, 2000);
+        
         return;
     } else if (!potassium) {
         document.getElementById('error-message').textContent = "Veuillez remplir le Potassium (K)";
         document.getElementById("errorModal").style.display = "block";
+
+        setTimeout(function() {
+            document.getElementById("errorModal").style.display = "none";
+        }, 2000);
+       
         return;
     } else if (!moisture) {
         document.getElementById('error-message').textContent = "Veuillez remplir l'Humidité";
         document.getElementById("errorModal").style.display = "block";
+
+        setTimeout(function() {
+            document.getElementById("errorModal").style.display = "none";
+        }, 2000);
+        
         return;
     }
 
