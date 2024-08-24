@@ -23,7 +23,6 @@ function collectData() {
     alert('Données normalisées');
 }
 
-// Fonction de normalisation
 function normalizeData(data) {
     const minValues = [3.0, 0, 0, 0, 0];  // valeurs minimales pour chaque caractéristique
     const maxValues = [10.0, 100, 100, 100, 100];  // valeurs maximales pour chaque caractéristique
@@ -32,10 +31,9 @@ function normalizeData(data) {
 }
 
 async function trainModel(data, labels, years) {
-    // Entrée du modèle
+
     const input = tf.input({ shape: [data[0].length] });
 
-    // Couche cachée commune
     const hiddenLayer1 = tf.layers.dense({ units: 32, activation: 'relu' }).apply(input);
     const hiddenLayer2 = tf.layers.dense({ units: 16, activation: 'relu' }).apply(hiddenLayer1);
 
@@ -59,7 +57,7 @@ async function trainModel(data, labels, years) {
     });
 
     // Convertir les données en tenseurs
-    const xs = tf.tensor2d(data).cast('float32');  // Assurez-vous que `data` est un tableau de tableaux
+    const xs = tf.tensor2d(data).cast('float32'); 
     const ysClassification = tf.tensor1d(labels, 'int32');  // Labels pour la classification
     const ysRegression = tf.tensor1d(years).cast('float32');  // Labels pour la régression, convertis en 'float32'
 
@@ -78,7 +76,7 @@ async function trainModel(data, labels, years) {
 function predictSoilFertility(model, newInput) {
     const inputTensor = tf.tensor2d([newInput]);
 
-    // Convertir l'entrée en 'float32' si nécessaire
+
     const inputTensorFloat = inputTensor.cast('float32');
 
     const prediction = model.predict(inputTensorFloat);
