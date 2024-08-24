@@ -98,14 +98,20 @@ function predictSoilFertility(model, newInput) {
     //const predictedYears = predictedYearsFloat.dataSync()[0];
     const predictedYears = prediction[1].dataSync()[0];
 
+    if (predictedYears < 0) {
+        predictedYears = 0;
+    }
     const wholeYears = Math.floor(predictedYears);
     const fractionalYears = predictedYears - wholeYears;
-    const extraDays = fractionalYears * 365; 
+
+    const isLeapYear = (new Date().getFullYear() + wholeYears) % 4 === 0 && ((new Date().getFullYear() + wholeYears) % 100 !== 0 || (new Date().getFullYear() + wholeYears) % 400 === 0);
+    const daysInYear = isLeapYear ? 366 : 365;
+    const extraDays = Math.round(fractionalYears * daysInYear);
 
     console.log(`Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}`);
     console.log(`Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)}`);
 
-    predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br> Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)} jours`;
+    predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br> Années estimées pour atteindre la fertilité: ${wholeYears} ans et ${extraDays.toFixed(0)} jours`;
 }
 
 function validateFormAndExecute(action) {
