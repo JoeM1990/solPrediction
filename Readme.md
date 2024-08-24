@@ -19,7 +19,6 @@ Pour exécuter ce projet localement, suivez les étapes ci-dessous.
 ### Prérequis
 
 - Un navigateur web avec support JavaScript.
-- [Node.js](https://nodejs.org/) installé (facultatif si vous souhaitez configurer un serveur local).
 
 ### Étapes d'installation
 
