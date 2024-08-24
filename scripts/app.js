@@ -95,12 +95,12 @@ function predictSoilFertility(model, newInput) {
     // Si 'predictedYearsTensor' doit également être 'float32'
     const predictedYearsFloat = predictedYearsTensor.cast('float32');
     
-    const predictedYears = predictedYearsFloat.dataSync()[0];
+    const predictedYears = predictedYearsFloat.dataSync()[0] * 365;
 
     console.log(`Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}`);
     console.log(`Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)}`);
 
-    predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br> Années estimées pour atteindre la fertilité: ${predictedYears} ans`;
+    predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br> Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)} ans`;
 }
 
 function validateFormAndExecute(action) {
