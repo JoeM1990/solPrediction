@@ -3,6 +3,8 @@
 const predictionResult = document.getElementById('prediction-result');
 let dataNormalized;
 
+let model;
+
 const exampleLabels = [1, 0, 2, 3, 4 ];  // 1 = Fertile, 0 = Non Fertile
 const exampleYears = [1, 0, 2, 3, 4];  // Années estimées pour atteindre la fertilité
 
@@ -47,7 +49,7 @@ async function trainModel(data, labels, years) {
     const outputRegression = tf.layers.dense({ units: 1, name: 'regression_output' }).apply(hiddenLayer2);
 
     // Création du modèle avec deux sorties
-    const model = tf.model({ inputs: input, outputs: [outputClassification, outputRegression] });
+    model = tf.model({ inputs: input, outputs: [outputClassification, outputRegression] });
 
     // Compilation du modèle avec deux sorties
     model.compile({
@@ -141,10 +143,10 @@ function validateFormAndExecute(action) {
 
         const trainingData = [
             dataNormalized,  // Échantillon normalisé de l'utilisateur
-            [0.4, 0.1, 0.2, 0.3, 0.5], // Exemple d'échantillon 1
-            [0.6, 0.2, 0.4, 0.1, 0.3], // Exemple d'échantillon 2
-            [0.3, 0.3, 0.5, 0.2, 0.6], // Exemple d'échantillon 3
-            [0.5, 0.4, 0.3, 0.4, 0.2]  // Exemple d'échantillon 4
+            [0.4, 0.1, 0.2, 0.3, 0.5], 
+            [0.6, 0.2, 0.4, 0.1, 0.3], 
+            [0.3, 0.3, 0.5, 0.2, 0.6], 
+            [0.5, 0.4, 0.3, 0.4, 0.2] 
         ];
 
         trainModel(trainingData, exampleLabels, exampleYears);
