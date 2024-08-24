@@ -34,7 +34,8 @@ function normalizeData(data) {
 
 async function trainModel(data, labels, years) {
 
-    alert('Modèle entraîné avec succès');
+    document.getElementById('infos-message').textContent = "Modèle entraîné avec succès";
+    document.getElementById("messageModal").style.display = "block";
 
     const input = tf.input({ shape: [data[0].length] });
 
