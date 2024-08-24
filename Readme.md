@@ -43,7 +43,7 @@ Pour exécuter ce projet localement, suivez les étapes ci-dessous.
     Poussez votre branche (git push origin feature/NouvelleFonctionnalité).
     Ouvrez une demande de fusion (Pull Request).
     
-### Auteur
-    [Joe Monkila](https://github.com/JoeM1990) - Créateur et Développeur Principal
+## Auteur
+[Joe Monkila](https://github.com/JoeM1990) - Créateur et Développeur Principal
 
 
