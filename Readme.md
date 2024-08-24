@@ -26,8 +26,8 @@ Pour exécuter ce projet localement, suivez les étapes ci-dessous.
 1. **Clonez le dépôt**
 
    ```bash
-   git clone https://github.com/your-username/soil-fertility-prediction.git
-   cd soil-fertility-prediction
+   git clone https://github.com/JoeM1990/solPrediction.git
+   cd solPrediction
 
 2. **Ouvrez le fichier HTML**
 
