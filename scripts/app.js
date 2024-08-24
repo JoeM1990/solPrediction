@@ -1,7 +1,7 @@
 /* Author: Jonathan Monkila */
 
 const predictionResult = document.getElementById('prediction-result');
-let dataNormalized;
+let dataNormalized = [];
 
 const exampleLabels = [1, 0, 2, 3, 4 ];  // 1 = Fertile, 0 = Non Fertile
 const exampleYears = [1, 0, 2, 3, 4];  // Années estimées pour atteindre la fertilité
@@ -17,7 +17,7 @@ function collectData() {
     const inputData = [ph, nitrogen, phosphorus, potassium, moisture];
 
     // Normalisation des données (si nécessaire)
-    dataNormalized = normalizeData(inputData);
+    dataNormalized.push(normalizeData(inputData));
 
     // Utilisation des données normalisées pour l'entraînement ou la prédiction
     console.log('Données normalisées:', dataNormalized);
