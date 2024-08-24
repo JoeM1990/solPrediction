@@ -21,8 +21,10 @@ function collectData() {
 
     console.log('Données normalisées:', dataNormalized);
 
-    document.getElementById('infos-message').textContent = "Les données sont collectés et normalisées";
-    document.getElementById("messageModal").style.display = "block";
+    setTimeout(function() {
+        document.getElementById('infos-message').textContent = "Les données sont collectées et normalisées";
+        document.getElementById("messageModal").style.display = "block";
+    }, 3000);
 }
 
 function normalizeData(data) {
@@ -34,8 +36,10 @@ function normalizeData(data) {
 
 async function trainModel(data, labels, years) {
 
-    document.getElementById('infos-message').textContent = "Modèle entraîné avec succès";
-    document.getElementById("messageModal").style.display = "block";
+    setTimeout(function() {
+        document.getElementById('infos-message').textContent = "Modèle entraîné avec succès";
+        document.getElementById("messageModal").style.display = "block";
+    }, 3000);
 
     const input = tf.input({ shape: [data[0].length] });
 
