@@ -162,22 +162,11 @@ function validateFormAndExecute(action) {
         
         return;
     } else if (!potassium) {
-        document.getElementById('error-message').textContent = "Veuillez remplir le Potassium (K)";
-        document.getElementById("errorModal").style.display = "block";
-
-        setTimeout(function() {
-            document.getElementById("errorModal").style.display = "none";
-        }, 1000);
+        showAlert("Veuillez remplir le Potassium (K)");
        
         return;
     } else if (!moisture) {
-        document.getElementById('error-message').textContent = "Veuillez remplir l'Humidité";
-        document.getElementById("errorModal").style.display = "block";
-
-        setTimeout(function() {
-            document.getElementById("errorModal").style.display = "none";
-        }, 1000);
-        
+        showAlert("Veuillez remplir l'Humidité")
         return;
     }
 
@@ -221,3 +210,12 @@ window.onclick = function(event) {
         closeModal();
     }
 };
+
+function showAlert(message) {
+    document.getElementById('infos-message').textContent = message;
+    document.getElementById("messageModal").style.display = "block";
+
+    setTimeout(function() {
+        document.getElementById("messageModal").style.display = "none";
+    }, 1000);
+}
