@@ -135,30 +135,14 @@ function validateFormAndExecute(action) {
     const moisture = document.getElementById('moisture').value;
 
     if (!ph) {
-        document.getElementById('error-message').textContent = "Veuillez remplir le pH du Sol";
-        document.getElementById("errorModal").style.display = "block";
-
-        setTimeout(function() {
-            document.getElementById("errorModal").style.display = "none";
-        }, 1000);
-       
+        showAlert("Veuillez remplir le pH du Sol");
         return;
     } else if (!nitrogen) {
-        document.getElementById('error-message').textContent = "Veuillez remplir l'Azote (N)";
-        document.getElementById("errorModal").style.display = "block";
-
-        setTimeout(function() {
-            document.getElementById("errorModal").style.display = "none";
-        }, 1000);
+        showAlert("Veuillez remplir l'Azote (N)");
        
         return;
     } else if (!phosphorus) {
-        document.getElementById('error-message').textContent = "Veuillez remplir le Phosphore (P)";
-        document.getElementById("errorModal").style.display = "block";
-
-        setTimeout(function() {
-            document.getElementById("errorModal").style.display = "none";
-        }, 1000);
+        showAlert("Veuillez remplir le Phosphore (P)");
         
         return;
     } else if (!potassium) {
