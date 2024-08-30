@@ -18,7 +18,6 @@ function collectData() {
     const inputData = [ph, nitrogen, phosphorus, potassium, moisture];
 
     dataNormalized = normalizeData(inputData);
-
     console.log('Données normalisées:', dataNormalized);
 
     showAlert("Les données sont collectées et normalisées");
