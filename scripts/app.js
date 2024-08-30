@@ -103,9 +103,6 @@ function predictSoilFertility(model, newInput) {
     const daysInYear = isLeapYear ? 366 : 365;
     const extraDays = Math.round(fractionalYears * daysInYear);
 
-    // console.log(`Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}`);
-    // console.log(`Années estimées pour atteindre la fertilité: ${predictedYears.toFixed(2)}`);
-
     if(predictedClass === 3){
         predictionResult.innerHTML = `Prédiction: Fertile`;
     }else if (predictedClass === 2){
