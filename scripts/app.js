@@ -180,10 +180,12 @@ window.onclick = function(event) {
 };
 
 function showAlert(message) {
+
     document.getElementById('infos-message').textContent = message;
     document.getElementById("messageModal").style.display = "block";
 
     setTimeout(function() {
         document.getElementById("messageModal").style.display = "none";
     }, 1000);
+    
 }
