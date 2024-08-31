@@ -5,7 +5,7 @@ let dataNormalized;
 
 let model;
 
-const exampleLabels = [0, 1, 2, 3, 4 ];  // 1 = Fertile, 0 = Non Fertile
+const exampleLabels = [0, 1, 2, 3, 4 ];  // 1 = Fertile ...
 const exampleYears = [0, 1, 2, 3, 4];  // Années estimées pour atteindre la fertilité
 
 function collectData() {
