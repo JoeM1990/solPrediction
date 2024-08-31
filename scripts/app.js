@@ -40,7 +40,6 @@ async function trainModel(data, labels, years) {
 
     // Sortie pour la classification multi-classes (4 classes)
     const outputClassification = tf.layers.dense({ units: 4, activation: 'softmax', name: 'classification_output' }).apply(hiddenLayer2);
-
     // Sortie pour la régression (prédiction du temps en années)
     const outputRegression = tf.layers.dense({ units: 1, name: 'regression_output' }).apply(hiddenLayer2);
 
