@@ -174,6 +174,7 @@ function closeErrorModal() {
 
 window.onclick = function(event) {
     const modal = document.getElementById('infoModal');
+    
     if (event.target == modal) {
         closeModal();
     }
@@ -187,5 +188,5 @@ function showAlert(message) {
     setTimeout(function() {
         document.getElementById("messageModal").style.display = "none";
     }, 1000);
-    
+
 }
