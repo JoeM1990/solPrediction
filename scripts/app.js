@@ -180,6 +180,14 @@ function closeModalRec() {
     document.getElementById("recModal").style.display = "none";
 }
 
+function openModalBib() {
+    document.getElementById("bibModal").style.display = "block";
+}
+
+function closeModalBib() {
+    document.getElementById("bibModal").style.display = "none";
+}
+
 function closeMessageModal() {
     document.getElementById("messageModal").style.display = "none";
 }
