@@ -172,6 +172,14 @@ function closeModalStory() {
     document.getElementById("storyModal").style.display = "none";
 }
 
+function openModalRec() {
+    document.getElementById("recModal").style.display = "block";
+}
+
+function closeModalRec() {
+    document.getElementById("recModal").style.display = "none";
+}
+
 function closeMessageModal() {
     document.getElementById("messageModal").style.display = "none";
 }
