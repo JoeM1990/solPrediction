@@ -5,7 +5,7 @@ let dataNormalized;
 
 let model;
 
-const exampleLabels = [0, 1, 2, 3, 4 ];  // 1 = Fertile ...
+const exampleLabels = [0, 1, 2, 3, 4];  // 1 = Fertile ...
 const exampleYears = [0, 1, 2, 3, 4];  // Années estimées pour atteindre la fertilité
 
 function collectData() {
@@ -26,7 +26,7 @@ function collectData() {
 function normalizeData(data) {
     const minValues = [3.0, 0, 0, 0, 0];  // valeurs minimales pour chaque caractéristique
     const maxValues = [10.0, 100, 100, 100, 100];  // valeurs maximales pour chaque caractéristique
-    
+
     return data.map((value, index) => (value - minValues[index]) / (maxValues[index] - minValues[index]));
 }
 
@@ -57,7 +57,7 @@ async function trainModel(data, labels, years) {
     });
 
     // Convertir les données en tenseurs
-    const xs = tf.tensor2d(data).cast('float32'); 
+    const xs = tf.tensor2d(data).cast('float32');
     const ysClassification = tf.tensor1d(labels, 'int32');  // Labels pour la classification
     const ysRegression = tf.tensor1d(years).cast('float32');  // Labels pour la régression, convertis en 'float32'
 
@@ -79,13 +79,13 @@ function predictSoilFertility(model, newInput) {
 
     const prediction = model.predict(inputTensorFloat);
 
-   
+
     const predictedClassTensor = prediction[0].argMax(1);
     const predictedClassFloat = predictedClassTensor.cast('float32');
 
     const predictedClass = predictedClassFloat.dataSync()[0];
     const predictedYearsTensor = prediction[1];
-    
+
     const predictedYearsFloat = predictedYearsTensor.cast('float32');
     //const predictedYears = predictedYearsFloat.dataSync()[0];
     let predictedYears = prediction[1].dataSync()[0];
@@ -93,7 +93,7 @@ function predictSoilFertility(model, newInput) {
     if (predictedYears < 0) {
         predictedYears = 0;
     }
-    
+
     const wholeYears = Math.floor(predictedYears);
     const fractionalYears = predictedYears - wholeYears;
 
@@ -101,11 +101,11 @@ function predictSoilFertility(model, newInput) {
     const daysInYear = isLeapYear ? 366 : 365;
     const extraDays = Math.round(fractionalYears * daysInYear);
 
-    if(predictedClass === 3){
+    if (predictedClass === 3) {
         predictionResult.innerHTML = `Prédiction: Fertile`;
-    }else if (predictedClass === 2){
+    } else if (predictedClass === 2) {
         predictionResult.innerHTML = `Prédiction: Bientôt Fertile <br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimés pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
-    }else if (predictedClass === 1){
+    } else if (predictedClass === 1) {
         predictionResult.innerHTML = `Prédiction: Non Fertile <br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimés pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
     }
     //predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimées pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
@@ -123,15 +123,15 @@ function validateFormAndExecute(action) {
         return;
     } else if (!nitrogen) {
         showAlert("Veuillez remplir l'Azote (N)");
-       
+
         return;
     } else if (!phosphorus) {
         showAlert("Veuillez remplir le Phosphore (P)");
-        
+
         return;
     } else if (!potassium) {
         showAlert("Veuillez remplir le Potassium (K)");
-       
+
         return;
     } else if (!moisture) {
         showAlert("Veuillez remplir l'Humidité")
@@ -144,10 +144,10 @@ function validateFormAndExecute(action) {
 
         const trainingData = [
             dataNormalized,  // Échantillon normalisé de l'utilisateur
-            [0.4, 0.1, 0.2, 0.3, 0.5], 
-            [0.6, 0.2, 0.4, 0.1, 0.3], 
-            [0.3, 0.3, 0.5, 0.2, 0.6], 
-            [0.5, 0.4, 0.3, 0.4, 0.2] 
+            [0.4, 0.1, 0.2, 0.3, 0.5],
+            [0.6, 0.2, 0.4, 0.1, 0.3],
+            [0.3, 0.3, 0.5, 0.2, 0.6],
+            [0.5, 0.4, 0.3, 0.4, 0.2]
         ];
 
         trainModel(trainingData, exampleLabels, exampleYears);
@@ -196,9 +196,9 @@ function closeErrorModal() {
     document.getElementById("errorModal").style.display = "none";
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modal = document.getElementById('infoModal');
-    
+
     if (event.target == modal) {
         closeModal();
     }
@@ -209,7 +209,7 @@ function showAlert(message) {
     document.getElementById('infos-message').textContent = message;
     document.getElementById("messageModal").style.display = "block";
 
-    setTimeout(function() {
+    setTimeout(function () {
         document.getElementById("messageModal").style.display = "none";
     }, 1000);
 
