@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,9 @@
     <title>Collecte de Données du Sol</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
+
 <body>
-   
+
     <div class="navbar">
         <img src="assets/bib.png" class="login-icon" alt="Login" onclick="openModalBib()">
         <img src="assets/story.png" class="login-icon" alt="Login" onclick="openModalStory()">
@@ -19,19 +21,19 @@
     <form id="soil-data-form">
         <label for="ph">pH du Sol:</label>
         <input type="number" id="ph" name="ph" step="0.01" required>
-        
+
         <label for="nitrogen">Azote (N):</label>
         <input type="number" id="nitrogen" name="nitrogen" required>
-        
+
         <label for="phosphorus">Phosphore (P):</label>
         <input type="number" id="phosphorus" name="phosphorus" required>
-        
+
         <label for="potassium">Potassium (K):</label>
         <input type="number" id="potassium" name="potassium" required>
-        
+
         <label for="moisture">Humidité:</label>
         <input type="number" id="moisture" name="moisture" step="0.01" required>
-        
+
         <div class="button-container">
             <button type="button" onclick="validateFormAndExecute('collect')">Collect Data</button>
             <button type="button" onclick="validateFormAndExecute('train')">Training Data</button>
@@ -39,7 +41,7 @@
         </div>
     </form>
 
-   
+
     <div id="prediction-result">
         Les résultats de la prédiction apparaîtront ici.
     </div>
@@ -49,8 +51,10 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2 style="color: #28a745;">Informations sur l'application</h2>
-            <p>Cet outil vous permet de collecter des données sur la fertilité du sol et de prédire la qualité du sol basé sur les mesures saisies.</p>
-            <p>Utilisez les champs ci-dessus pour entrer les données du sol, puis cliquez sur "Soumettre" pour voir la prédiction.</p> <br>
+            <p>Cet outil vous permet de collecter des données sur la fertilité du sol et de prédire la qualité du sol
+                basé sur les mesures saisies.</p>
+            <p>Utilisez les champs ci-dessus pour entrer les données du sol, puis cliquez sur "Soumettre" pour voir la
+                prédiction.</p> <br>
             <p><a href="https://github.com/JoeM1990" target="_blank">By Joe MONKILA</a></p>
         </div>
     </div>
@@ -100,7 +104,7 @@
                     </tr>
                 </tbody>
             </table>
-            
+
         </div>
     </div>
 
@@ -108,58 +112,79 @@
         <div class="modal-content">
             <span class="close" onclick="closeModalRec()">&times;</span>
             <h2 style="color: #28a745;">Recommandations</h2>
-            <p>Pour avoir un sol fertile, plusieurs paramètres essentiels doivent être pris en compte afin de garantir une bonne productivité agricole. Voici les recommandations détaillées ainsi que les principaux paramètres à surveiller :</p>
+            <p>Pour avoir un sol fertile, plusieurs paramètres essentiels doivent être pris en compte afin de garantir
+                une bonne productivité agricole. Voici les recommandations détaillées ainsi que les principaux
+                paramètres à surveiller :</p>
             <p>1. Structure et Texture du Sol</p>
             <ul>
-                <li>Recommandation : Un sol fertile doit avoir une bonne structure, ce qui signifie qu'il doit être bien aéré et avoir une texture équilibrée (ni trop sablonneuse ni trop argileuse).</li>
+                <li>Recommandation : Un sol fertile doit avoir une bonne structure, ce qui signifie qu'il doit être bien
+                    aéré et avoir une texture équilibrée (ni trop sablonneuse ni trop argileuse).</li>
                 <li>Paramètres à surveiller :
                     Taux d'argile, limon et sable : Un sol équilibré est souvent un sol limono-argilo-sableux.
-                    Profondeur du sol : Pour que les racines des plantes se développent correctement, une bonne profondeur (au moins 30 cm) est nécessaire.</li>
+                    Profondeur du sol : Pour que les racines des plantes se développent correctement, une bonne
+                    profondeur (au moins 30 cm) est nécessaire.</li>
             </ul>
             <p>2. pH du Sol</p>
             <ul>
-                <li>Recommandation : Le pH du sol doit être adapté aux types de plantes que vous voulez cultiver. La majorité des cultures prospèrent dans un sol légèrement acide à neutre (pH entre 6 et 7).</li>
+                <li>Recommandation : Le pH du sol doit être adapté aux types de plantes que vous voulez cultiver. La
+                    majorité des cultures prospèrent dans un sol légèrement acide à neutre (pH entre 6 et 7).</li>
                 <li>Paramètres à surveiller :
-                    pH du sol : Tester régulièrement le pH et l'ajuster si nécessaire avec des amendements comme la chaux pour augmenter le pH ou le soufre pour le réduire.</li>
+                    pH du sol : Tester régulièrement le pH et l'ajuster si nécessaire avec des amendements comme la
+                    chaux pour augmenter le pH ou le soufre pour le réduire.</li>
             </ul>
             <p>3. Contenu en Matière Organique</p>
             <ul>
-                <li>Recommandation : Un sol riche en matière organique favorise l'activité biologique, améliore la structure du sol et favorise la rétention d'eau.</li>
+                <li>Recommandation : Un sol riche en matière organique favorise l'activité biologique, améliore la
+                    structure du sol et favorise la rétention d'eau.</li>
                 <li>Paramètres à surveiller :
-                    Taux de matière organique : Idéalement, ce taux doit être supérieur à 3 %. Vous pouvez l’augmenter en ajoutant du compost, du fumier, ou des engrais verts.</li>
+                    Taux de matière organique : Idéalement, ce taux doit être supérieur à 3 %. Vous pouvez l’augmenter
+                    en ajoutant du compost, du fumier, ou des engrais verts.</li>
             </ul>
             <p>4. Contenu en Nutriments Essentiels</p>
             <ul>
-                <li>Recommandation : Un sol fertile doit contenir les nutriments essentiels pour les plantes, notamment les macronutriments et micronutriments.</li>
+                <li>Recommandation : Un sol fertile doit contenir les nutriments essentiels pour les plantes, notamment
+                    les macronutriments et micronutriments.</li>
                 <li>Paramètres à surveiller :
-                    Azote (N) : Essentiel pour la croissance des plantes. Il peut être ajouté sous forme de compost, de fumier ou d’engrais azotés.
-                    Phosphore (P) : Important pour le développement des racines. Ajouter du phosphate naturel ou des engrais contenant du phosphore.
-                    Potassium (K) : Nécessaire pour la résistance aux maladies et la vigueur des plantes. Utiliser du sulfate de potassium ou du compost riche en potassium.
-                    Micronutriments (fer, manganèse, zinc, cuivre) : Nécessaires en petites quantités, ils peuvent être apportés avec des engrais spécifiques si des carences sont détectées.</li>
+                    Azote (N) : Essentiel pour la croissance des plantes. Il peut être ajouté sous forme de compost, de
+                    fumier ou d’engrais azotés.
+                    Phosphore (P) : Important pour le développement des racines. Ajouter du phosphate naturel ou des
+                    engrais contenant du phosphore.
+                    Potassium (K) : Nécessaire pour la résistance aux maladies et la vigueur des plantes. Utiliser du
+                    sulfate de potassium ou du compost riche en potassium.
+                    Micronutriments (fer, manganèse, zinc, cuivre) : Nécessaires en petites quantités, ils peuvent être
+                    apportés avec des engrais spécifiques si des carences sont détectées.</li>
             </ul>
             <p>5. Capacité de Rétention en Eau</p>
             <ul>
-                <li>Recommandation : Le sol doit retenir suffisamment d’eau pour éviter que les plantes ne soient stressées par le manque d’eau, mais il doit aussi bien drainer l’eau pour éviter l’engorgement.</li>
+                <li>Recommandation : Le sol doit retenir suffisamment d’eau pour éviter que les plantes ne soient
+                    stressées par le manque d’eau, mais il doit aussi bien drainer l’eau pour éviter l’engorgement.</li>
                 <li>Paramètres à surveiller :
-                    Capacité de rétention d'eau : Peut être améliorée en ajoutant de la matière organique ou des amendements comme la tourbe ou la vermiculite.</li>
+                    Capacité de rétention d'eau : Peut être améliorée en ajoutant de la matière organique ou des
+                    amendements comme la tourbe ou la vermiculite.</li>
             </ul>
             <p>6. Activité Biologique du Sol</p>
             <ul>
-                <li>Recommandation : La présence de vers de terre, de champignons mycorhiziens et de micro-organismes favorise la décomposition de la matière organique et améliore la structure du sol.</li>
+                <li>Recommandation : La présence de vers de terre, de champignons mycorhiziens et de micro-organismes
+                    favorise la décomposition de la matière organique et améliore la structure du sol.</li>
                 <li>Paramètres à surveiller :
-                    Densité de vie microbienne et lombriciens : Encouragez une activité biologique saine en utilisant des pratiques agricoles durables (compostage, rotation des cultures, non-labour).</li>
+                    Densité de vie microbienne et lombriciens : Encouragez une activité biologique saine en utilisant
+                    des pratiques agricoles durables (compostage, rotation des cultures, non-labour).</li>
             </ul>
             <p>7. Capacité de Drainage</p>
             <ul>
-                <li>Recommandation : Un bon drainage empêche la stagnation de l'eau, qui peut asphyxier les racines.</li>
+                <li>Recommandation : Un bon drainage empêche la stagnation de l'eau, qui peut asphyxier les racines.
+                </li>
                 <li>Paramètres à surveiller :
-                    Taux de saturation en eau : Si le sol est trop argileux, un drainage artificiel ou l’ajout de sable ou de gravier peut être nécessaire.</li>
+                    Taux de saturation en eau : Si le sol est trop argileux, un drainage artificiel ou l’ajout de sable
+                    ou de gravier peut être nécessaire.</li>
             </ul>
             <p>8. Température du Sol</p>
             <ul>
-                <li>Recommandation : Le sol doit maintenir une température favorable à la germination et à la croissance des plantes.</li>
+                <li>Recommandation : Le sol doit maintenir une température favorable à la germination et à la croissance
+                    des plantes.</li>
                 <li>Paramètres à surveiller :
-                    Température du sol : Il peut être intéressant de protéger le sol avec un paillage pour éviter une trop grande variation de température.</li>
+                    Température du sol : Il peut être intéressant de protéger le sol avec un paillage pour éviter une
+                    trop grande variation de température.</li>
             </ul>
         </div>
     </div>
@@ -168,7 +193,9 @@
         <div class="modal-content">
             <span class="close" onclick="closeModalBib()">&times;</span>
             <h2 style="color: #28a745;">Bibliotheques</h2>
-            <p>L’analyse de sol s’intéresse d’abord à la texture de la terre arable, c’est-à-dire la terre qui peut être labourée ou cultivée. La texture d’un sol est la proportion des constituants selon 3 composantes : les argiles (inférieurs à 2 mm), les limons (entre 2 et 50  mm) et les sables (plus de 50  mm). </p>
+            <p>L’analyse de sol s’intéresse d’abord à la texture de la terre arable, c’est-à-dire la terre qui peut être
+                labourée ou cultivée. La texture d’un sol est la proportion des constituants selon 3 composantes : les
+                argiles (inférieurs à 2 mm), les limons (entre 2 et 50 mm) et les sables (plus de 50 mm). </p>
             <p>Selon la proportion de chaque classe, on distingue plusieurs types de sol :</p> <br>
             <ul>
                 <li>Sol sableux</li>
@@ -177,7 +204,9 @@
                 <li>Sol humifère (10% ou plus d’humus)</li>
             </ul>
             <img src="assets/sol.gif" width="400px">
-            <p>La texture d’un sol est cependant rarement unique, c’est un mélange d’argile, de sable et de limon. Pour la déterminer, on utilise le triangle des textures. Par exemple, un sol composé de 70% de limon, 60% de sable et 50% d’argile est un sollimon-argileux-sableux.</p>
+            <p>La texture d’un sol est cependant rarement unique, c’est un mélange d’argile, de sable et de limon. Pour
+                la déterminer, on utilise le triangle des textures. Par exemple, un sol composé de 70% de limon, 60% de
+                sable et 50% d’argile est un sollimon-argileux-sableux.</p>
         </div>
     </div>
 
@@ -202,4 +231,5 @@
     <script src="scripts/app.js"></script>
 
 </body>
+
 </html>
