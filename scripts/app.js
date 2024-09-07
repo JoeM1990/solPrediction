@@ -164,6 +164,14 @@ function closeModal() {
     document.getElementById("infoModal").style.display = "none";
 }
 
+function openModalStory() {
+    document.getElementById("storyModal").style.display = "block";
+}
+
+function closeModalStory() {
+    document.getElementById("storyModal").style.display = "none";
+}
+
 function closeMessageModal() {
     document.getElementById("messageModal").style.display = "none";
 }
