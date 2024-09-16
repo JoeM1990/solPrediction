@@ -222,9 +222,14 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const password = document.getElementById('password').value;
 
     if (username === 'admin' && password === '1234') {
+        localStorage.setItem('Authentifacte', true);
         window.location.href = 'dashboard.html';
     } else {
-        
         document.getElementById('error-message').innerText = 'Nom d\'utilisateur ou mot de passe incorrect';
     }
+});
+
+document.getElementById('logout').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    window.location.href = 'index.html';
 });
