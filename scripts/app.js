@@ -214,3 +214,20 @@ function showAlert(message) {
     }, 1000);
 
 }
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Empêche le rechargement de la page
+
+    // Récupérer les valeurs du formulaire
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Authentification simple (à remplacer par un backend)
+    if (username === 'admin' && password === 'password') {
+        // Rediriger vers une autre page après succès de l'authentification
+        window.location.href = 'dashboard.html';
+    } else {
+        // Afficher un message d'erreur si échec de l'authentification
+        document.getElementById('error-message').innerText = 'Nom d\'utilisateur ou mot de passe incorrect';
+    }
+});
