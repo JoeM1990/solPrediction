@@ -8,6 +8,12 @@ let model;
 const exampleLabels = [0, 1, 2, 3, 4];  // 1 = Fertile ...
 const exampleYears = [0, 1, 2, 3, 4];  // Années estimées pour atteindre la fertilité
 
+document.addEventListener('DOMContentLoaded', function () {
+    if (localStorage.getItem('isAuthenticated')) {
+        window.location.href = 'dashboard.html';
+    }
+});
+
 function collectData() {
     const ph = parseFloat(document.getElementById('ph').value);
     const nitrogen = parseFloat(document.getElementById('nitrogen').value);
@@ -221,8 +227,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
+    //Vous pouvez ameliorer l'auth en integrant votre api
     if (username === 'admin' && password === '1234') {
-        localStorage.setItem('authentificate', true);
+        localStorage.setItem('isAuthenticated', true);
         window.location.href = 'dashboard.html';
     } else {
         document.getElementById('error-message').innerText = 'Nom d\'utilisateur ou mot de passe incorrect';
@@ -230,6 +237,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 });
 
 function logout() {
-    localStorage.clear();
+    localStorage.removeItem('isAuthenticated');
     window.location.href = 'index.html';
 };
