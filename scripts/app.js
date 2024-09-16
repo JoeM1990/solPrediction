@@ -229,8 +229,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     }
 });
 
-document.getElementById('logout').addEventListener('submit', function(event) {
-    event.preventDefault(); 
+function logout() {
     localStorage.clear();
     window.location.href = 'index.html';
-});
+};
