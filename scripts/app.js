@@ -222,7 +222,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const password = document.getElementById('password').value;
 
     if (username === 'admin' && password === '1234') {
-        localStorage.setItem('Authentifacte', true);
+        localStorage.setItem('authentificate', true);
         window.location.href = 'dashboard.html';
     } else {
         document.getElementById('error-message').innerText = 'Nom d\'utilisateur ou mot de passe incorrect';
