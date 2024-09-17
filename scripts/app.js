@@ -8,12 +8,6 @@ let model;
 const exampleLabels = [0, 1, 2, 3, 4];  // 1 = Fertile ...
 const exampleYears = [0, 1, 2, 3, 4];  // Années estimées pour atteindre la fertilité
 
-document.addEventListener('DOMContentLoaded', function () {
-    if (localStorage.getItem('isAuthenticated')) {
-        window.location.href = 'dashboard.html';
-    }
-});
-
 function collectData() {
     const ph = parseFloat(document.getElementById('ph').value);
     const nitrogen = parseFloat(document.getElementById('nitrogen').value);

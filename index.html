@@ -24,6 +24,13 @@
     </div>
 
     <script src="scripts/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (localStorage.getItem('isAuthenticated')) {
+            window.location.href = 'dashboard.html';
+            }
+         });
+    </script>
     
 </body>
 </html>
