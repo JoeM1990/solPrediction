@@ -231,6 +231,10 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 });
 
 function logout() {
-    localStorage.removeItem('isAuthenticated');
-    window.location.href = 'index.html';
+
+    if(confirm("Voulez-vous vous deconnecter")){
+        localStorage.removeItem('isAuthenticated');
+        window.location.href = 'index.html';
+    }
+    
 };
