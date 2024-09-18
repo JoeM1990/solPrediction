@@ -290,3 +290,30 @@ async function addPredictionToDb(result, predict){
             showAlert('Error: ' + error, 1500);
         });
 }
+
+
+function fetchData() {
+    const apiUrl = 'https://jsonplaceholder.typicode.com/users';
+  
+    fetch(apiUrl)
+      .then(response => response.json()) 
+      .then(data => {
+      
+        const tableBody = document.querySelector('#data-table tbody');
+        tableBody.innerHTML = '';
+  
+        // Loop through the data and create table rows
+        data.forEach(item => {
+          const row = `
+            <tr>
+              <td>${item.id}</td>
+              <td>${item.name}</td>
+              <td>${item.email}</td>
+            </tr>
+          `;
+          // Insert the row into the table body
+          tableBody.innerHTML += row;
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }
