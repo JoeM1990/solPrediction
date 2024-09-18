@@ -237,4 +237,34 @@ function logout() {
         window.location.href = 'index.html';
     }
     
-};
+}
+
+async function addPrediction(){
+    const apiUrl = config.apiUrl
+    let numero = document.getElementById('numero').value;
+    let statut = document.getElementById('etat').value;
+    let proprietaire = document.getElementById('proprietaire').value;
+
+    const formData = {
+        'numero': numero,
+        'statut': statut,
+        'proprietaire': proprietaire,
+    };
+
+    await fetch(`${apiUrl}/cars`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            closeAddModal();
+            showAlert('Effectué', 3000);
+        })
+        .catch(error => {
+            console.log('error :', error);
+            showAlert('Error: ' + error, 1500);
+        });
+}
