@@ -273,6 +273,7 @@ async function addPrediction(result, predict){
     const formData = {
         'resultat': result,
         'prediction': predict,
+        'date': new Date().toLocaleString()
     };
 
     await fetch(`${apiUrl}/solPrediction`, {
