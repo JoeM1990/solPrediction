@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         .then(response => response.json())
         .then(data => {
             config = data;
-            alert('success')
         })
         .catch(error => console.error('Erreur de chargement de la configuration :', error));
  });
@@ -276,7 +275,7 @@ async function addPrediction(result, predict){
         'prediction': predict,
     };
 
-    await fetch(`${apiUrl}/cars`, {
+    await fetch(`${apiUrl}/solPrediction`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
