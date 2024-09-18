@@ -5,8 +5,6 @@ let dataNormalized;
 
 let model;
 
-let stateResult;
-let recResult;
 
 const exampleLabels = [0, 1, 2, 3, 4];  // 1 = Fertile ...
 const exampleYears = [0, 1, 2, 3, 4];  // Années estimées pour atteindre la fertilité
@@ -253,16 +251,11 @@ function logout() {
     
 }
 
-async function addPrediction(){
+async function addPrediction(result, predict){
     const apiUrl = config.apiUrl
-    let numero = document.getElementById('numero').value;
-    let statut = document.getElementById('etat').value;
-    let proprietaire = document.getElementById('proprietaire').value;
-
     const formData = {
-        'numero': numero,
-        'statut': statut,
-        'proprietaire': proprietaire,
+        'resultat': result,
+        'prediction': predict,
     };
 
     await fetch(`${apiUrl}/cars`, {
