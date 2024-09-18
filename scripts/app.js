@@ -267,8 +267,6 @@ async function addPredictionToDb(result, predict){
     })
         .then(response => response.json())
         .then(data => {
-            closeAddModal();
-            showAlert('Effectué', 3000);
         })
         .catch(error => {
             console.log('error :', error);
