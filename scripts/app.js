@@ -9,6 +9,24 @@ let model;
 const exampleLabels = [0, 1, 2, 3, 4];  // 1 = Fertile ...
 const exampleYears = [0, 1, 2, 3, 4];  // Années estimées pour atteindre la fertilité
 
+
+document.addEventListener('DOMContentLoaded', async function () {
+    await fetch('./config.json',
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+        .then(response => response.json())
+        .then(data => {
+            config = data;
+            alert('success')
+        })
+        .catch(error => console.error('Erreur de chargement de la configuration :', error));
+ });
+
 function collectData() {
     const ph = parseFloat(document.getElementById('ph').value);
     const nitrogen = parseFloat(document.getElementById('nitrogen').value);
