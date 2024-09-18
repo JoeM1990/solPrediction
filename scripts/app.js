@@ -267,6 +267,7 @@ async function addPredictionToDb(result, predict){
     })
         .then(response => response.json())
         .then(data => {
+            fetchData();
         })
         .catch(error => {
             console.log('error :', error);
