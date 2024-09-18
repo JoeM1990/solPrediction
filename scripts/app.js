@@ -293,9 +293,9 @@ async function addPredictionToDb(result, predict){
 
 
 function fetchData() {
-    const apiUrl = 'https://jsonplaceholder.typicode.com/users';
+    const apiUrl = config.apiUrl
   
-    fetch(apiUrl)
+    fetch(`${apiUrl}/solPrediction`)
       .then(response => response.json()) 
       .then(data => {
       
