@@ -241,21 +241,6 @@ function showAlert(message) {
 
 }
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); 
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    //Vous pouvez ameliorer l'auth en integrant votre api
-    if (username === 'admin' && password === '1234') {
-        localStorage.setItem('isAuthenticated', true);
-        window.location.href = 'dashboard.html';
-    } else {
-        document.getElementById('error-message').innerText = 'Nom d\'utilisateur ou mot de passe incorrect';
-    }
-});
-
 function logout() {
 
     if(confirm("Voulez-vous vous deconnecter")){
@@ -298,16 +283,18 @@ function fetchData() {
     fetch(`${apiUrl}/solPrediction`)
       .then(response => response.json()) 
       .then(data => {
-      
+    
+        console.log(data);
+
         const tableBody = document.querySelector('#data-table tbody');
         tableBody.innerHTML = '';
   
         data.forEach(item => {
           const row = `
             <tr>
-              <td>${item.id}</td>
-              <td>${item.name}</td>
-              <td>${item.email}</td>
+              <td>${item.date}</td>
+              <td>${item.resultat}</td>
+              <td>${item.prediction}</td>
             </tr>
           `;
           tableBody.innerHTML += row;
