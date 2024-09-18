@@ -302,7 +302,6 @@ function fetchData() {
         const tableBody = document.querySelector('#data-table tbody');
         tableBody.innerHTML = '';
   
-        // Loop through the data and create table rows
         data.forEach(item => {
           const row = `
             <tr>
@@ -311,9 +310,10 @@ function fetchData() {
               <td>${item.email}</td>
             </tr>
           `;
-          // Insert the row into the table body
           tableBody.innerHTML += row;
         });
       })
       .catch(error => console.error('Error fetching data:', error));
   }
+
+  window.onload = fetchData;
