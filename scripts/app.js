@@ -5,6 +5,9 @@ let dataNormalized;
 
 let model;
 
+let stateResult;
+let recResult;
+
 const exampleLabels = [0, 1, 2, 3, 4];  // 1 = Fertile ...
 const exampleYears = [0, 1, 2, 3, 4];  // Années estimées pour atteindre la fertilité
 
@@ -103,6 +106,10 @@ function predictSoilFertility(model, newInput) {
 
     if (predictedClass === 3) {
         predictionResult.innerHTML = `Prédiction: Fertile`;
+
+        stateResult = 'Fertile';
+        recResult = 'Aucun';
+        
     } else if (predictedClass === 2) {
         predictionResult.innerHTML = `Prédiction: Bientôt Fertile <br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimés pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
     } else if (predictedClass === 1) {
