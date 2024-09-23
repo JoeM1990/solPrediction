@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="styles/style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
 </head>
 
@@ -22,7 +23,7 @@
         <img src="assets/user.jpg" class="login-icon" alt="Login" onclick="openModal()">
     </div>
 
-    <h1 class="thome"> Dashboard</h1>
+    <h1 class="thome" onclick="openGraphiqueModal()"> Dashboard</h1>
 
     <form id="soil-data-form">
         <label for="ph">pH du Sol:</label>
@@ -79,7 +80,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                
+
                 </tbody>
             </table>
 
@@ -205,10 +206,14 @@
     </div>
 
     <section class="sol-prediction modal" id="results-pred">
-        <h2>Graphique</h2>
-        <div id="sol-chart-container" class="animate__fadeIn">
-            <canvas id="sales-chart" height="90px"></canvas>
+        <div class="modal-content">
+             <span class="close" onclick="closeGraphiqueModal()">&times;</span>
+            <h2>Graphique</h2>
+            <div id="sol-chart-container" class="animate__fadeIn">
+                <canvas id="sol-chart" height="90px"></canvas>
+            </div>
         </div>
+
     </section>
 
 
