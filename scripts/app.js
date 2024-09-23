@@ -134,6 +134,9 @@ function predictSoilFertility(model, newInput) {
 
         addPredictionToDb('Non Fertile', 'Jours estimés pour atteindre la fertilité:' + extraDays.toFixed(0) + 'jours')
     }
+
+    displayResults();
+    document.getElementById("results-pred").style.display = "block";
     //predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimées pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
 }
 
@@ -231,7 +234,6 @@ window.onclick = function (event) {
 };
 
 function openGraphiqueModal() {
-    displayResults();
     document.getElementById("results-pred").style.display = "block";
 }
 
