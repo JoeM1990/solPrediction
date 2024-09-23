@@ -230,6 +230,14 @@ window.onclick = function (event) {
     }
 };
 
+function openGraphiqueModal() {
+    document.getElementById("results-pred").style.display = "block";
+}
+
+function closeGraphiqueModal() {
+    document.getElementById("results-pred").style.display = "none";
+}
+
 function showAlert(message) {
 
     document.getElementById('infos-message').textContent = message;
