@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             config = data;
         })
         .catch(error => console.error('Erreur de chargement de la configuration :', error));
- });
+});
 
 function collectData() {
     const ph = parseFloat(document.getElementById('ph').value);
@@ -123,16 +123,16 @@ function predictSoilFertility(model, newInput) {
         predictionResult.innerHTML = `Prédiction: Fertile`;
 
         addPredictionToDb('Fertile', 'Aucun');
-        
+
     } else if (predictedClass === 2) {
         predictionResult.innerHTML = `Prédiction: Bientôt Fertile <br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimés pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
 
-        addPredictionToDb('Bientôt Fertile', 'Jours estimés pour atteindre la fertilité:' +  extraDays.toFixed(0)+ 'jours')
+        addPredictionToDb('Bientôt Fertile', 'Jours estimés pour atteindre la fertilité:' + extraDays.toFixed(0) + 'jours')
 
     } else if (predictedClass === 1) {
         predictionResult.innerHTML = `Prédiction: Non Fertile <br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimés pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
 
-        addPredictionToDb('Non Fertile', 'Jours estimés pour atteindre la fertilité:' +  extraDays.toFixed(0)+ 'jours')
+        addPredictionToDb('Non Fertile', 'Jours estimés pour atteindre la fertilité:' + extraDays.toFixed(0) + 'jours')
     }
     //predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimées pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
 }
@@ -251,14 +251,14 @@ function showAlert(message) {
 
 function logout() {
 
-    if(confirm("Voulez-vous vous deconnecter")){
+    if (confirm("Voulez-vous vous deconnecter")) {
         localStorage.removeItem('isAuthenticated');
         window.location.href = 'index.html';
     }
-    
+
 }
 
-async function addPredictionToDb(result, predict){
+async function addPredictionToDb(result, predict) {
     const apiUrl = config.apiUrl
     const formData = {
         'resultat': result,
@@ -286,70 +286,68 @@ async function addPredictionToDb(result, predict){
 
 function fetchData() {
     const apiUrl = config.apiUrl
-  
-    fetch(`${apiUrl}/solPrediction`)
-      .then(response => response.json()) 
-      .then(data => {
-    
-        console.log(data);
 
-        const tableBody = document.querySelector('#data-table tbody');
-        tableBody.innerHTML = '';
-  
-        data.forEach(item => {
-          const row = `
+    fetch(`${apiUrl}/solPrediction`)
+        .then(response => response.json())
+        .then(data => {
+
+            console.log(data);
+
+            const tableBody = document.querySelector('#data-table tbody');
+            tableBody.innerHTML = '';
+
+            data.forEach(item => {
+                const row = `
             <tr>
               <td>${item.date}</td>
               <td>${item.resultat}</td>
               <td>${item.prediction}</td>
             </tr>
           `;
-          tableBody.innerHTML += row;
-        });
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }
+                tableBody.innerHTML += row;
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
 
-  function displayResults(predictions) {
-    const ctx = document.getElementById('sales-chart').getContext('2d');
-    const labels = predictions.map(p => p.date); 
-    const salesData = predictions.map(p => p.sales); 
+function displayResults(predictions) {
+    const ctx = document.getElementById('sol-chart').getContext('2d');
+    const labels = ['pH', 'N', 'P', 'K', 'Humidite'];
+    const solData =[10, 22, 5, 10, 5, 30];
 
-    console.log('Date : ' , labels);
-    console.log('Donnees : ' , salesData);
 
     if (window.salesChart) {
         window.salesChart.destroy();
     }
 
     window.salesChart = new Chart(ctx, {
-        type: 'line', 
+        type: 'bar',
         data: {
-            labels: labels, 
+            labels: labels,
             datasets: [{
-                label: 'Prédictions de Ventes',
-                data: salesData,
+                label: '',
+                data: solData,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
                 fill: true, // Active le remplissage sous la courbe
                 backgroundColor: 'rgba(75, 192, 192, 0.2)', // Ajoute une couleur de fond sous la courbe
                 tension: 0.4
             }]
-            
+
         },
         options: {
             scales: {
                 x: {
                     title: {
                         display: true,
-                        text: 'Date'
+                        text: 'Elements'
                     }
                 },
                 y: {
                     beginAtZero: false,
                     title: {
                         display: true,
-                        text: 'Ventes'
+                        text: 'Valeurs'
                     }
                 }
             },
@@ -360,13 +358,10 @@ function fetchData() {
                 }
             },
             responsive: true,
-            maintainAspectRatio: false 
+            maintainAspectRatio: false
         }
     });
 
-    // Affichage des résultats
-    document.getElementById("results-pred").style.display = "block";
-    document.getElementById("results-rec").style.display = "block";
 }
 
-  window.onload = fetchData;
+window.onload = fetchData;
