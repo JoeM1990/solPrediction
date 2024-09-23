@@ -310,4 +310,63 @@ function fetchData() {
       .catch(error => console.error('Error fetching data:', error));
   }
 
+  function displayResults(predictions) {
+    const ctx = document.getElementById('sales-chart').getContext('2d');
+    const labels = predictions.map(p => p.date); 
+    const salesData = predictions.map(p => p.sales); 
+
+    console.log('Date : ' , labels);
+    console.log('Donnees : ' , salesData);
+
+    if (window.salesChart) {
+        window.salesChart.destroy();
+    }
+
+    window.salesChart = new Chart(ctx, {
+        type: 'line', 
+        data: {
+            labels: labels, 
+            datasets: [{
+                label: 'Prédictions de Ventes',
+                data: salesData,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: true, // Active le remplissage sous la courbe
+                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Ajoute une couleur de fond sous la courbe
+                tension: 0.4
+            }]
+            
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    title: {
+                        display: true,
+                        text: 'Ventes'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false 
+        }
+    });
+
+    // Affichage des résultats
+    document.getElementById("results-pred").style.display = "block";
+    document.getElementById("results-rec").style.display = "block";
+}
+
   window.onload = fetchData;
