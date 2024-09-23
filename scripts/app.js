@@ -313,8 +313,15 @@ function fetchData() {
 
 function displayResults() {
     const ctx = document.getElementById('sol-chart').getContext('2d');
+
+    const ph = parseFloat(document.getElementById('ph').value);
+    const nitrogen = parseFloat(document.getElementById('nitrogen').value);
+    const phosphorus = parseFloat(document.getElementById('phosphorus').value);
+    const potassium = parseFloat(document.getElementById('potassium').value);
+    const moisture = parseFloat(document.getElementById('moisture').value);
+
     const labels = ['pH', 'N', 'P', 'K', 'Humidite'];
-    const solData =[10, 22, 5, 10, 5, 30];
+    const solData =[ph, nitrogen, phosphorus, potassium, moisture];
 
 
     if (window.salesChart) {
