@@ -231,6 +231,7 @@ window.onclick = function (event) {
 };
 
 function openGraphiqueModal() {
+    displayResults();
     document.getElementById("results-pred").style.display = "block";
 }
 
@@ -310,7 +311,7 @@ function fetchData() {
         .catch(error => console.error('Error fetching data:', error));
 }
 
-function displayResults(predictions) {
+function displayResults() {
     const ctx = document.getElementById('sol-chart').getContext('2d');
     const labels = ['pH', 'N', 'P', 'K', 'Humidite'];
     const solData =[10, 22, 5, 10, 5, 30];
@@ -325,7 +326,7 @@ function displayResults(predictions) {
         data: {
             labels: labels,
             datasets: [{
-                label: '',
+                label: 'Graphique',
                 data: solData,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
