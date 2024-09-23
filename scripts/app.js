@@ -326,7 +326,7 @@ function displayResults() {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Graphique',
+                label: 'Result',
                 data: solData,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
