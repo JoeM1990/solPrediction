@@ -221,10 +221,14 @@ function validateFormAndExecute(action) {
     const potassium = document.getElementById('potassium').value;
     const moisture = document.getElementById('moisture').value;
 
-    if (!ph) {
+    if (!ph ) {
         showAlert("Veuillez remplir le pH du Sol");
         return;
-    } else if (!nitrogen) {
+    } else if(ph.length>2){
+        showAlert("Le pH ne peut pas depasser 2 caracteres");
+        return;
+    }
+    else if (!nitrogen) {
         showAlert("Veuillez remplir l'Azote (N)");
 
         return;
