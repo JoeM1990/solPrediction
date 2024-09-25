@@ -90,54 +90,95 @@ async function trainModel(data, labels, years) {
     console.log('Modèle entraîné avec succès');
 }
 
+// function predictSoilFertility(model, newInput) {
+//     const inputTensor = tf.tensor2d([newInput]);
+
+//     const inputTensorFloat = inputTensor.cast('float32');
+
+//     const prediction = model.predict(inputTensorFloat);
+
+
+//     const predictedClassTensor = prediction[0].argMax(1);
+//     const predictedClassFloat = predictedClassTensor.cast('float32');
+
+//     const predictedClass = predictedClassFloat.dataSync()[0];
+//     const predictedYearsTensor = prediction[1];
+
+//     const predictedYearsFloat = predictedYearsTensor.cast('float32');
+//     //const predictedYears = predictedYearsFloat.dataSync()[0];
+//     let predictedYears = prediction[1].dataSync()[0];
+
+//     if (predictedYears < 0) {
+//         predictedYears = 0;
+//     }
+
+//     const wholeYears = Math.floor(predictedYears);
+//     const fractionalYears = predictedYears - wholeYears;
+
+//     const isLeapYear = (new Date().getFullYear() + wholeYears) % 4 === 0 && ((new Date().getFullYear() + wholeYears) % 100 !== 0 || (new Date().getFullYear() + wholeYears) % 400 === 0);
+//     const daysInYear = isLeapYear ? 366 : 365;
+//     const extraDays = Math.round(fractionalYears * daysInYear);
+
+//     if (predictedClass === 3) {
+//         predictionResult.innerHTML = `Prédiction: Fertile`;
+
+//         addPredictionToDb('Fertile', 'Aucun');
+
+//     } else if (predictedClass === 2) {
+//         predictionResult.innerHTML = `Prédiction: Bientôt Fertile <br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimés pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
+
+//         addPredictionToDb('Bientôt Fertile', 'Jours estimés pour atteindre la fertilité:' + extraDays.toFixed(0) + 'jours')
+
+//     } else if (predictedClass === 1) {
+//         predictionResult.innerHTML = `Prédiction: Non Fertile <br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimés pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
+
+//         addPredictionToDb('Non Fertile', 'Jours estimés pour atteindre la fertilité:' + extraDays.toFixed(0) + 'jours')
+//     }
+
+//     displayResults();
+//     document.getElementById("results-pred").style.display = "block";
+//     //predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimées pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
+// }
+
 function predictSoilFertility(model, newInput) {
     const inputTensor = tf.tensor2d([newInput]);
-
     const inputTensorFloat = inputTensor.cast('float32');
-
+    
     const prediction = model.predict(inputTensorFloat);
-
-
     const predictedClassTensor = prediction[0].argMax(1);
     const predictedClassFloat = predictedClassTensor.cast('float32');
-
     const predictedClass = predictedClassFloat.dataSync()[0];
     const predictedYearsTensor = prediction[1];
-
     const predictedYearsFloat = predictedYearsTensor.cast('float32');
-    //const predictedYears = predictedYearsFloat.dataSync()[0];
-    let predictedYears = prediction[1].dataSync()[0];
-
-    if (predictedYears < 0) {
-        predictedYears = 0;
-    }
+    
+    let predictedYears = predictedYearsFloat.dataSync()[0];
+    if (predictedYears < 0) predictedYears = 0;
 
     const wholeYears = Math.floor(predictedYears);
     const fractionalYears = predictedYears - wholeYears;
 
-    const isLeapYear = (new Date().getFullYear() + wholeYears) % 4 === 0 && ((new Date().getFullYear() + wholeYears) % 100 !== 0 || (new Date().getFullYear() + wholeYears) % 400 === 0);
+    const isLeapYear = (new Date().getFullYear() + wholeYears) % 4 === 0 && 
+                       ((new Date().getFullYear() + wholeYears) % 100 !== 0 || 
+                        (new Date().getFullYear() + wholeYears) % 400 === 0);
     const daysInYear = isLeapYear ? 366 : 365;
     const extraDays = Math.round(fractionalYears * daysInYear);
 
+    // Recommandations basées sur les paramètres
+    const recommendations = generateRecommendations(newInput);
+
     if (predictedClass === 3) {
-        predictionResult.innerHTML = `Prédiction: Fertile`;
-
-        addPredictionToDb('Fertile', 'Aucun');
-
+        predictionResult.innerHTML = `Prédiction: Fertile<br>Aucune modification nécessaire.`;
+        addPredictionToDb('Fertile', 'Aucun changement nécessaire');
     } else if (predictedClass === 2) {
-        predictionResult.innerHTML = `Prédiction: Bientôt Fertile <br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimés pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
-
-        addPredictionToDb('Bientôt Fertile', 'Jours estimés pour atteindre la fertilité:' + extraDays.toFixed(0) + 'jours')
-
+        predictionResult.innerHTML = `Prédiction: Bientôt Fertile<br>Années estimées: ${wholeYears} ans, ${extraDays} jours<br>${recommendations}`;
+        addPredictionToDb('Bientôt Fertile', `Années: ${wholeYears} ans, ${extraDays} jours. ${recommendations}`);
     } else if (predictedClass === 1) {
-        predictionResult.innerHTML = `Prédiction: Non Fertile <br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimés pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
-
-        addPredictionToDb('Non Fertile', 'Jours estimés pour atteindre la fertilité:' + extraDays.toFixed(0) + 'jours')
+        predictionResult.innerHTML = `Prédiction: Non Fertile<br>Années estimées: ${wholeYears} ans, ${extraDays} jours<br>${recommendations}`;
+        addPredictionToDb('Non Fertile', `Années: ${wholeYears} ans, ${extraDays} jours. ${recommendations}`);
     }
 
     displayResults();
     document.getElementById("results-pred").style.display = "block";
-    //predictionResult.innerHTML = `Prédiction: ${predictedClass === 3 ? 'Fertile' : predictedClass === 2 ? 'Bientôt Fertile' : predictedClass === 1 ? 'Semi-Fertile' : 'Non Fertile'}<br> Années estimées pour atteindre la fertilité: ${wholeYears} ans <br> Jours estimées pour atteindre la fertilité: ${extraDays.toFixed(0)} jours`;
 }
 
 function validateFormAndExecute(action) {
@@ -339,8 +380,8 @@ function displayResults() {
                 data: solData,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
-                fill: true, // Active le remplissage sous la courbe
-                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Ajoute une couleur de fond sous la courbe
+                fill: true, 
+                backgroundColor: 'rgba(75, 192, 192, 0.2)', 
                 tension: 0.4
             }]
 
