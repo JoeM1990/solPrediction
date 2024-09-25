@@ -251,6 +251,9 @@ function validateFormAndExecute(action) {
     else if (!moisture) {
         showAlert("Veuillez remplir l'Humidité")
         return;
+    }else if(moisture.length>2){
+        showAlert("L'humiidite ne peut pas depasser 2 caracteres");
+        return;
     }
 
     if (action === 'collect') {
