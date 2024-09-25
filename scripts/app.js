@@ -171,10 +171,10 @@ function predictSoilFertility(model, newInput) {
         addPredictionToDb('Fertile', 'Aucun changement nécessaire');
     } else if (predictedClass === 2) {
         predictionResult.innerHTML = `Prédiction: Bientôt Fertile<br>Années estimées: ${wholeYears} ans, ${extraDays} jours<br>${recommendations}`;
-        addPredictionToDb('Bientôt Fertile', `Années: ${wholeYears} ans, ${extraDays} jours. ${recommendations}`);
+        addPredictionToDb('Bientôt Fertile', 'Jours estimés pour atteindre la fertilité:' + extraDays.toFixed(0) + 'jours');
     } else if (predictedClass === 1) {
         predictionResult.innerHTML = `Prédiction: Non Fertile<br>Années estimées: ${wholeYears} ans, ${extraDays} jours<br>${recommendations}`;
-        addPredictionToDb('Non Fertile', `Années: ${wholeYears} ans, ${extraDays} jours. ${recommendations}`);
+        addPredictionToDb('Non Fertile', 'Jours estimés pour atteindre la fertilité:' + extraDays.toFixed(0) + 'jours')
     }
 
     displayResults();
