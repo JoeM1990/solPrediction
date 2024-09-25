@@ -230,17 +230,25 @@ function validateFormAndExecute(action) {
     }
     else if (!nitrogen) {
         showAlert("Veuillez remplir l'Azote (N)");
-
         return;
-    } else if (!phosphorus) {
+    } else if(nitrogen.length>2){
+        showAlert("Le nitrogen ne peut pas depasser 2 caracteres");
+        return;
+    }else if (!phosphorus) {
         showAlert("Veuillez remplir le Phosphore (P)");
 
         return;
-    } else if (!potassium) {
-        showAlert("Veuillez remplir le Potassium (K)");
-
+    } else if(phosphorus.length>2){
+        showAlert("Le phosphore ne peut pas depasser 2 caracteres");
         return;
-    } else if (!moisture) {
+    }else if (!potassium) {
+        showAlert("Veuillez remplir le Potassium (K)");
+        return;
+    } else if(potassium.length>2){
+        showAlert("Le potassium ne peut pas depasser 2 caracteres");
+        return;
+    }
+    else if (!moisture) {
         showAlert("Veuillez remplir l'Humidité")
         return;
     }
