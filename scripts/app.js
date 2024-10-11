@@ -463,4 +463,5 @@ function displayResults() {
 
 }
 
+
 window.onload = fetchData;
