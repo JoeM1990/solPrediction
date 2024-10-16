@@ -42,8 +42,8 @@ function collectData() {
 }
 
 function normalizeData(data) {
-    const minValues = [6, 25, 10, 150, 0];  // valeurs minimales pour chaque caractéristique
-    const maxValues = [7, 50, 50, 250, 100];  // valeurs maximales pour chaque caractéristique
+    const minValues = [6, 25, 10, 150, 50];  // valeurs minimales pour chaque caractéristique
+    const maxValues = [7, 50, 50, 250, 80];  // valeurs maximales pour chaque caractéristique
 
     return data.map((value, index) => (value - minValues[index]) / (maxValues[index] - minValues[index]));
 }
