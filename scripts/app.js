@@ -238,7 +238,7 @@ function validateFormAndExecute(action) {
         showAlert("Veuillez remplir le Phosphore (P)");
 
         return;
-    } else if(phosphorus.length>2){
+    } else if(phosphorus.length>3){
         showAlert("Le phosphore ne peut pas depasser 2 caracteres");
         return;
     }else if (!potassium) {
