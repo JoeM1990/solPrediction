@@ -224,7 +224,7 @@ function validateFormAndExecute(action) {
     if (!ph ) {
         showAlert("Veuillez remplir le pH du Sol");
         return;
-    } else if(ph.length>2){
+    } else if(ph.length>3){
         showAlert("Le pH ne peut pas depasser 2 caracteres");
         return;
     }
@@ -245,7 +245,7 @@ function validateFormAndExecute(action) {
         showAlert("Veuillez remplir le Potassium (K)");
         return;
     } else if(potassium.length>3){
-        showAlert("Le potassium ne peut pas depasser 2 caracteres");
+        showAlert("Le potassium ne peut pas depasser 3 caracteres");
         return;
     }
     else if (!moisture) {
