@@ -238,13 +238,13 @@ function validateFormAndExecute(action) {
         showAlert("Veuillez remplir le Phosphore (P)");
 
         return;
-    } else if(phosphorus.length>3){
+    } else if(phosphorus.length>2){
         showAlert("Le phosphore ne peut pas depasser 2 caracteres");
         return;
     }else if (!potassium) {
         showAlert("Veuillez remplir le Potassium (K)");
         return;
-    } else if(potassium.length>2){
+    } else if(potassium.length>3){
         showAlert("Le potassium ne peut pas depasser 2 caracteres");
         return;
     }
