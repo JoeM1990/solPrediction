@@ -1,4 +1,6 @@
-/* Author: Jonathan Monkila */
+/**
+ * @author Joe Monkila
+ */
 
 const predictionResult = document.getElementById('prediction-result');
 let dataNormalized;
