@@ -192,23 +192,23 @@ function generateRecommendations(inputData) {
     if (ph < 6.5) {
         recommendations += '• Augmenter le pH en ajoutant de la chaux agricole.<br>';
     } else if (ph > 7.5) {
-        recommendations += '- Réduire le pH avec du soufre ou de la matière organique.<br>';
+        recommendations += '• Réduire le pH avec du soufre ou de la matière organique.<br>';
     }
 
     if (nitrogen < 50) {
-        recommendations += '- Ajouter de l\'azote, par exemple via des engrais riches en N.<br>';
+        recommendations += '• Ajouter de l\'azote, par exemple via des engrais riches en N.<br>';
     }
 
     if (phosphorus < 30) {
-        recommendations += '- Ajouter du phosphore avec un engrais phosphaté.<br>';
+        recommendations += '• Ajouter du phosphore avec un engrais phosphaté.<br>';
     }
 
     if (potassium < 40) {
-        recommendations += '- Augmenter le potassium avec des engrais potassiques.<br>';
+        recommendations += '• Augmenter le potassium avec des engrais potassiques.<br>';
     }
 
     if (moisture < 20) {
-        recommendations += '- Augmenter l\'humidité du sol via l\'irrigation ou l\'utilisation de paillis.<br>';
+        recommendations += '• Augmenter l\'humidité du sol via l\'irrigation ou l\'utilisation de paillis.<br>';
     }
 
     return recommendations === 'Pour améliorer la fertilité du sol :<br>' 
