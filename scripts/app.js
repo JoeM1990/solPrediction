@@ -190,7 +190,7 @@ function generateRecommendations(inputData) {
     let recommendations = 'Pour améliorer la fertilité du sol :<br>';
     
     if (ph < 6.5) {
-        recommendations += '- Augmenter le pH en ajoutant de la chaux agricole.<br>';
+        recommendations += '• Augmenter le pH en ajoutant de la chaux agricole.<br>';
     } else if (ph > 7.5) {
         recommendations += '- Réduire le pH avec du soufre ou de la matière organique.<br>';
     }
